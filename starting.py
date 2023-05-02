@@ -1,6 +1,7 @@
 import speech_recognition as sr
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+url =("https://eip4dev.lntecc.com/EIPSCMUI/SOPUI/Warehouse/MaterialIssue")
 
 # set up speech recognition
 r = sr.Recognizer()
@@ -10,7 +11,7 @@ driver = webdriver.Chrome(executable_path="C:\\Users\\20325730\\Downloads\\ZZZ\\
 
 # function to open a URL
 def open_url(url):
-    driver.get(url="https://eip4dev.lntecc.com/EIPSCMUI/SOPUI/Warehouse/MaterialIssue")
+    driver.get(url)
 
 # function to fill in login credentials and click login button
 def fill_credentials(username, password):
