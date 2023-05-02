@@ -6,11 +6,11 @@ from selenium.webdriver.common.keys import Keys
 r = sr.Recognizer()
 
 # set up selenium driver
-driver = webdriver.Chrome()
+driver = webdriver.Chrome(executable_path="C:\\Users\\20325730\\Downloads\\ZZZ\\chromedriver_win32\\chromedriver.exe")
 
 # function to open a URL
 def open_url(url):
-    driver.get(url)
+    driver.get(url="https://eip4dev.lntecc.com/EIPSCMUI/SOPUI/Warehouse/MaterialIssue")
 
 # function to fill in login credentials and click login button
 def fill_credentials(username, password):
