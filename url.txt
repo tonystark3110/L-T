@@ -1,0 +1,19 @@
+task: https://eip4dev.lntecc.com/EIPSCMUI/SOPUI/Warehouse/MaterialIssue
+
+--------------------------------------------------------------------------------------------------
+FROM SCRATCH
+--------------------------------------------------------------------------------------------------
+1: https://eip4dev.lntecc.com/eiproot/login
+2: Press other User.
+3: username - mmurali  , password - Phnx@2019
+4: Press login.
+5:Press Search Bar.
+
+
+--------------------------------------------------------------------------------------------------
+SHORTCUT
+--------------------------------------------------------------------------------------------------
+1:https://eip4dev.lntecc.com/EIPSCMUI/SOPUI/Warehouse/MaterialIssue
+2: Press other User.
+3: username - mmurali  , password - Phnx@2019
+4: Press login.
