@@ -11,7 +11,7 @@ r = sr.Recognizer()
 
 
 # predefined URL
-url = "http://localhost:4200/indent-request/indentReq"
+url = "https://eip4dev.lntecc.com/EIPSCMUI/SOPUI/Warehouse/MaterialIssue"
 driver = webdriver.Chrome(executable_path="C:\\Users\\20325730\\Desktop\\ZZZ\\chromedriver_win32\\chromedriver.exe")
 driver.get(url)
 driver.maximize_window()
@@ -22,11 +22,12 @@ other_user = driver.find_element(By.XPATH,'/html/body/app-root/div/div[2]/app-lo
 other_user.click()
 username = driver.find_element(By.XPATH, '//*[@id="username"]')
 username.click()
-username.send_keys("LandT")
+username.send_keys("mmurali")
 password = driver.find_element(By.XPATH, '//*[@id="password-field"]')
 password.click()
-password.send_keys("ZZZZ")
+password.send_keys("Phnx@2019")
 login = driver.find_element(By.XPATH, '//*[@id="login-submit"]')
+login.click()
 time.sleep(1000)
 
 '''
