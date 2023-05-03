@@ -7,13 +7,25 @@ FROM SCRATCH
 2: Press other User.
 3: username - mmurali  , password - Phnx@2019
 4: Press login.
-5:Press Search Bar.
+5: Press Search Bar.
+6: search Material Issue Request
+7: Click it
+8: Create New indent
 
 
 --------------------------------------------------------------------------------------------------
 SHORTCUT
 --------------------------------------------------------------------------------------------------
-1:https://eip4dev.lntecc.com/EIPSCMUI/SOPUI/Warehouse/MaterialIssue
+1: https://eip4dev.lntecc.com/EIPSCMUI/SOPUI/Warehouse/MaterialIssue
 2: Press other User.
 3: username - mmurali  , password - Phnx@2019
 4: Press login.
+
+--------------------------------------------------------------------------------------------------
+LOCAL HOST
+--------------------------------------------------------------------------------------------------
+1: Run SOPUI (npm start)
+2: http://localhost:4200/indent-request/indentReq
+3: Press Create new indent button.
+4: Press job bar, add input and click the arrow button.
+5: Press Warehouse bar and add input, click the arrow button.
