@@ -14,15 +14,18 @@ FROM SCRATCH
 
 
 --------------------------------------------------------------------------------------------------
-SHORTCUT
+SHORTCUT  -  scratch
 --------------------------------------------------------------------------------------------------
 1: https://eip4dev.lntecc.com/EIPSCMUI/SOPUI/Warehouse/MaterialIssue
-2: Press other User.
-3: username - mmurali  , password - Phnx@2019
-4: Press login.
+2: Click other User. (By.XPATH,'/html/body/app-root/div/div[2]/app-login/div/form/div/div/div[1]/div/div[2]/div[1]/div/div[1]/ul/li[2]/a')
+3: Click on the Username bar.  (By.XPATH, '//*[@id="username"]')         username - mmurali
+4: Click on the Password bar.  (By.XPATH, '//*[@id="password-field"]')   password - Phnx@2019
+5: Click the login button.     (By.XPATH, '//*[@id="login-submit"]')
+
+
 
 --------------------------------------------------------------------------------------------------
-LOCAL HOST
+LOCAL HOST - starting_local.py
 --------------------------------------------------------------------------------------------------
 1: Run EIProot (npm start)
 2: Run SOPUI (npm start)
