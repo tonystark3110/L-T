@@ -5,7 +5,70 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 import time
+from gtts import gTTS
+import os
+from playsound import playsound
 r = sr.Recognizer()
+
+
+def texttospeech(text, filename):
+    filename = filename + '.mp3'
+    flag = True
+    while flag:
+        try:
+            tts = gTTS(text=text, lang='en', slow=False)
+            tts.save(filename)
+            flag = False
+        except:
+            print('Trying again')
+    playsound(filename)
+    os.remove(filename)
+    return
+
+def speechtotext(duration):
+    global i, addr, passwrd
+    r = sr.Recognizer()
+    with sr.Microphone() as source:
+        r.adjust_for_ambient_noise(source, duration=1)
+        # texttospeech("speak", file + i)
+        # i = i + str(1)
+        playsound('speak.mp3')
+        audio = r.listen(source, phrase_time_limit=duration)
+    try:
+        response = r.recognize_google(audio)
+    except:
+        response = 'N'
+    return response
+
+
+def convert_special_char(text):
+    temp=text
+    special_chars = ['dot','underscore','dollar','hash','star','plus','minus','space','dash']
+    for character in special_chars:
+        while(True):
+            pos=temp.find(character)
+            if pos == -1:
+                break
+            else :
+                if character == 'dot':
+                    temp=temp.replace('dot','.')
+                elif character == 'underscore':
+                    temp=temp.replace('underscore','_')
+                elif character == 'dollar':
+                    temp=temp.replace('dollar','$')
+                elif character == 'hash':
+                    temp=temp.replace('hash','#')
+                elif character == 'star':
+                    temp=temp.replace('star','*')
+                elif character == 'plus':
+                    temp=temp.replace('plus','+')
+                elif character == 'minus':
+                    temp=temp.replace('minus','-')
+                elif character == 'space':
+                    temp = temp.replace('space', '')
+                elif character == 'dash':
+                    temp=temp.replace('dash','-')
+    return temp
 
 
 
@@ -18,7 +81,6 @@ driver.maximize_window()
 #time.sleep(1000)
 
 other_user = driver.find_element(By.XPATH,'/html/body/app-root/div/div[2]/app-login/div/form/div/div/div[1]/div/div[2]/div[1]/div/div[1]/ul/li[2]/a')
-#search = driver.find_element(By.XPATH, '//*[@id="ibtINDADD"')
 other_user.click()
 username = driver.find_element(By.XPATH, '//*[@id="username"]')
 username.click()
@@ -28,7 +90,7 @@ password.click()
 password.send_keys("Phnx@2019")
 login = driver.find_element(By.XPATH, '//*[@id="login-submit"]')
 login.click()
-time.sleep(1000)
+time.sleep(500)
 
 '''
 # function to fill in login credentials and click login button
