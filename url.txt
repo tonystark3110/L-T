@@ -24,8 +24,13 @@ SHORTCUT
 --------------------------------------------------------------------------------------------------
 LOCAL HOST
 --------------------------------------------------------------------------------------------------
-1: Run SOPUI (npm start)
-2: http://localhost:4200/indent-request/indentReq
-3: Press Create new indent button.
-4: Press job bar, add input and click the arrow button.
-5: Press Warehouse bar and add input, click the arrow button.
+1: Run EIProot (npm start)
+2: Run SOPUI (npm start)
+3: http://localhost:4200/indent-request/indentReq
+4: Click other User. (By.XPATH,'/html/body/app-root/div/div[2]/app-login/div/form/div/div/div[1]/div/div[2]/div[1]/div/div[1]/ul/li[2]/a')
+5: Click on the Username bar.  (By.XPATH, '//*[@id="username"]')
+6: Click on the Password bar.  (By.XPATH, '//*[@id="password-field"]')
+7: Click the login button.     (By.XPATH, '//*[@id="login-submit"]')
+8: Press Create new indent button.(By.XPATH,'//*[@id="ibtINDADD"')  
+9: Press job bar, add input and click the arrow button.
+10: Press Warehouse bar and add input, click the arrow button.
