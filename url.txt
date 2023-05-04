@@ -1,4 +1,5 @@
 task: https://eip4dev.lntecc.com/EIPSCMUI/SOPUI/Warehouse/MaterialIssue
+      https://eip4bfix.lntecc.com/EIPSCMUI/SOPUI/indent-request/indentReq
 
 --------------------------------------------------------------------------------------------------
 Username & Password
@@ -29,7 +30,7 @@ FROM SCRATCH
 --------------------------------------------------------------------------------------------------
 SHORTCUT  -  scratch
 --------------------------------------------------------------------------------------------------
-1: https://eip4dev.lntecc.com/EIPSCMUI/SOPUI/Warehouse/MaterialIssue
+1: https://eip4bfix.lntecc.com/EIPSCMUI/SOPUI/indent-request/indentReq
 2: Click other User. (By.XPATH,'/html/body/app-root/div/div[2]/app-login/div/form/div/div/div[1]/div/div[2]/div[1]/div/div[1]/ul/li[2]/a')
 3: Click on the Username bar.  (By.XPATH, '//*[@id="username"]')         username - mmurali  (
 4: Click on the Password bar.  (By.XPATH, '//*[@id="password-field"]')   password - Phnx@2019
