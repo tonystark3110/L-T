@@ -74,7 +74,7 @@ def convert_special_char(text):
 
 
 # predefined URL
-url = "https://eip4dev.lntecc.com/EIPSCMUI/SOPUI/Warehouse/MaterialIssue"
+url = "https://eip4bfix.lntecc.com/EIPSCMUI/SOPUI/indent-request/indentReq"
 driver = webdriver.Chrome(executable_path="C:\\Users\\20325730\\Desktop\\ZZZ\\chromedriver_win32\\chromedriver.exe")
 driver.get(url)
 driver.maximize_window()
@@ -87,9 +87,12 @@ username.click()
 username.send_keys("mmurali")
 password = driver.find_element(By.XPATH, '//*[@id="password-field"]')
 password.click()
-password.send_keys("Phnx@2019")
+password.send_keys("E210a#04P1e&bfix")
 login = driver.find_element(By.XPATH, '//*[@id="login-submit"]')
 login.click()
+time.sleep(8)
+create_indent = driver.find_element(By.XPATH, '//*[@id="ibtINDADD"]')
+create_indent.click()
 time.sleep(500)
 
 '''
