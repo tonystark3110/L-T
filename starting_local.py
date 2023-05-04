@@ -90,10 +90,20 @@ password.click()
 password.send_keys("E210a#04P1e&bfix")
 login = driver.find_element(By.XPATH, '//*[@id="login-submit"]')
 login.click()
-time.sleep(8)
+time.sleep(3)
+session = driver.find_element(By.XPATH, '//*[@id="mat-dialog-0"]/eipmessagebox/div/div[3]/button')
+session.click()
+time.sleep(9)
 create_indent = driver.find_element(By.XPATH, '//*[@id="ibtINDADD"]')
 create_indent.click()
+time.sleep(2)
+warehouse = driver.find_element(By.XPATH, '//*[@id="ActxtboxINDCWarehouse"]')
+warehouse.click()
+time.sleep(3)
+option = driver.find_element(By.XPATH, '//*[@id="mat-option-26"]/span/span')
+option.click()
 time.sleep(500)
+
 
 '''
 # function to fill in login credentials and click login button
