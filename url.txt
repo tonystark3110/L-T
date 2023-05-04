@@ -32,10 +32,12 @@ SHORTCUT  -  scratch
 --------------------------------------------------------------------------------------------------
 1: https://eip4bfix.lntecc.com/EIPSCMUI/SOPUI/indent-request/indentReq
 2: Click other User. (By.XPATH,'/html/body/app-root/div/div[2]/app-login/div/form/div/div/div[1]/div/div[2]/div[1]/div/div[1]/ul/li[2]/a')
-3: Click on the Username bar.  (By.XPATH, '//*[@id="username"]')         username - mmurali  (
+3: Click on the Username bar.  (By.XPATH, '//*[@id="username"]')         username - mmurali  
 4: Click on the Password bar.  (By.XPATH, '//*[@id="password-field"]')   password - Phnx@2019
 5: Click the login button.     (By.XPATH, '//*[@id="login-submit"]')
-
+6: Click Create new indent button.(By.XPATH,'//*[@id="ibtINDADD"')
+7: Click warehouse. (By.XPATH, '//*[@id="ActxtboxINDCWarehouse"]')
+8. Click option. (By.XPATH, '//*[@id="mat-option-26"]/span/span')
 
 
 --------------------------------------------------------------------------------------------------
@@ -48,7 +50,7 @@ LOCAL HOST - starting_local.py
 5: Click on the Username bar.  (By.XPATH, '//*[@id="username"]')
 6: Click on the Password bar.  (By.XPATH, '//*[@id="password-field"]')
 7: Click the login button.     (By.XPATH, '//*[@id="login-submit"]')
-8: Press Create new indent button.(By.XPATH,'//*[@id="ibtINDADD"')  
+8: Click Create new indent button.(By.XPATH,'//*[@id="ibtINDADD"')  
 9: Press job bar, add input and click the arrow button.
 10: Press Warehouse bar and add input, click the arrow button.
 
