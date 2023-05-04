@@ -1,59 +1,145 @@
-task: https://eip4dev.lntecc.com/EIPSCMUI/SOPUI/Warehouse/MaterialIssue
-      https://eip4bfix.lntecc.com/EIPSCMUI/SOPUI/indent-request/indentReq
-
---------------------------------------------------------------------------------------------------
-Username & Password
---------------------------------------------------------------------------------------------------
-
-(dev)
-1. username - mmurali
-2. Password - Phnx@2019
-
-(bfix)
-1. Username - mmurali
-2. Password - E210a#04P1e&bfix
+import speech_recognition as sr
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+import time
+from gtts import gTTS
+import os
+from playsound import playsound
+r = sr.Recognizer()
 
 
---------------------------------------------------------------------------------------------------
-FROM SCRATCH
---------------------------------------------------------------------------------------------------
-1: https://eip4dev.lntecc.com/eiproot/login
-2: Press other User.
-3: username - mmurali  , password - Phnx@2019
-4: Press login.
-5: Press Search Bar.
-6: search Material Issue Request
-7: Click it
-8: Create New indent
+def texttospeech(text, filename):
+    filename = filename + '.mp3'
+    flag = True
+    while flag:
+        try:
+            tts = gTTS(text=text, lang='en', slow=False)
+            tts.save(filename)
+            flag = False
+        except:
+            print('Trying again')
+    playsound(filename)
+    os.remove(filename)
+    return
+
+def speechtotext(duration):
+    global i, addr, passwrd
+    r = sr.Recognizer()
+    with sr.Microphone() as source:
+        r.adjust_for_ambient_noise(source, duration=1)
+        # texttospeech("speak", file + i)
+        # i = i + str(1)
+        playsound('speak.mp3')
+        audio = r.listen(source, phrase_time_limit=duration)
+    try:
+        response = r.recognize_google(audio)
+    except:
+        response = 'N'
+    return response
 
 
---------------------------------------------------------------------------------------------------
-SHORTCUT  -  scratch
---------------------------------------------------------------------------------------------------
-1: https://eip4bfix.lntecc.com/EIPSCMUI/SOPUI/indent-request/indentReq
-2: Click other User. (By.XPATH,'/html/body/app-root/div/div[2]/app-login/div/form/div/div/div[1]/div/div[2]/div[1]/div/div[1]/ul/li[2]/a')
-3: Click on the Username bar.  (By.XPATH, '//*[@id="username"]')         username - mmurali  
-4: Click on the Password bar.  (By.XPATH, '//*[@id="password-field"]')   password - Phnx@2019
-5: Click the login button.     (By.XPATH, '//*[@id="login-submit"]')
-6: Click Create new indent button.(By.XPATH,'//*[@id="ibtINDADD"')
-7: Click warehouse. (By.XPATH, '//*[@id="ActxtboxINDCWarehouse"]')
-8. Click option. (By.XPATH, '//*[@id="mat-option-26"]/span/span')
+def convert_special_char(text):
+    temp=text
+    special_chars = ['dot','underscore','dollar','hash','star','plus','minus','space','dash']
+    for character in special_chars:
+        while(True):
+            pos=temp.find(character)
+            if pos == -1:
+                break
+            else :
+                if character == 'dot':
+                    temp=temp.replace('dot','.')
+                elif character == 'underscore':
+                    temp=temp.replace('underscore','_')
+                elif character == 'dollar':
+                    temp=temp.replace('dollar','$')
+                elif character == 'hash':
+                    temp=temp.replace('hash','#')
+                elif character == 'star':
+                    temp=temp.replace('star','*')
+                elif character == 'plus':
+                    temp=temp.replace('plus','+')
+                elif character == 'minus':
+                    temp=temp.replace('minus','-')
+                elif character == 'space':
+                    temp = temp.replace('space', '')
+                elif character == 'dash':
+                    temp=temp.replace('dash','-')
+    return temp
 
 
---------------------------------------------------------------------------------------------------
-LOCAL HOST - starting_local.py
---------------------------------------------------------------------------------------------------
-1: Run EIProot (npm start)
-2: Run SOPUI (npm start)
-3: http://localhost:4200/indent-request/indentReq
-4: Click other User. (By.XPATH,'/html/body/app-root/div/div[2]/app-login/div/form/div/div/div[1]/div/div[2]/div[1]/div/div[1]/ul/li[2]/a')
-5: Click on the Username bar.  (By.XPATH, '//*[@id="username"]')
-6: Click on the Password bar.  (By.XPATH, '//*[@id="password-field"]')
-7: Click the login button.     (By.XPATH, '//*[@id="login-submit"]')
-8: Click Create new indent button.(By.XPATH,'//*[@id="ibtINDADD"')  
-9: Press job bar, add input and click the arrow button.
-10: Press Warehouse bar and add input, click the arrow button.
 
 
+# predefined URL
+url = "https://eip4bfix.lntecc.com/EIPSCMUI/SOPUI/indent-request/indentReq"
+driver = webdriver.Chrome(executable_path="C:\\Users\\20325730\\Desktop\\ZZZ\\chromedriver_win32\\chromedriver.exe")
+driver.get(url)
+driver.maximize_window()
+#time.sleep(1000)
+
+other_user = driver.find_element(By.XPATH,'/html/body/app-root/div/div[2]/app-login/div/form/div/div/div[1]/div/div[2]/div[1]/div/div[1]/ul/li[2]/a')
+other_user.click()
+username = driver.find_element(By.XPATH, '//*[@id="username"]')
+username.click()
+username.send_keys("mmurali")
+password = driver.find_element(By.XPATH, '//*[@id="password-field"]')
+password.click()
+password.send_keys("E210a#04P1e&bfix")
+login = driver.find_element(By.XPATH, '//*[@id="login-submit"]')
+login.click()
+time.sleep(3)
+session = driver.find_element(By.XPATH, '//*[@id="mat-dialog-0"]/eipmessagebox/div/div[3]/button')
+session.click()
+time.sleep(9)
+create_indent = driver.find_element(By.XPATH, '//*[@id="ibtINDADD"]')
+create_indent.click()
+time.sleep(2)
+warehouse = driver.find_element(By.XPATH, '//*[@id="ActxtboxINDCWarehouse"]')
+warehouse.click()
+time.sleep(3)
+option = driver.find_element(By.XPATH, '//*[@id="mat-option-26"]/span/span')
+option.click()
+time.sleep(500)
 
 
+'''
+# function to fill in login credentials and click login button
+def fill_credentials(username, password):
+    try:
+        username_field = driver.find_element_by_id("Username")
+        password_field = driver.find_element_by_id("Password")
+        username_field.send_keys(username)
+        password_field.send_keys(password)
+        password_field.send_keys(Keys.RETURN)
+    except:
+        print("Could not fill in login credentials or click login button.")
+
+# loop for continuous voice recognition
+while True:
+    # get login credentials
+    with sr.Microphone() as source:
+        print("Speak your username...")
+        audio = r.listen(source)
+    try:
+        username = r.recognize_google(audio)
+        with sr.Microphone() as source:
+            print("Speak your password...")
+            audio = r.listen(source)
+        try:
+            password = r.recognize_google(audio)
+            print(f"Logging in with username '{username}' and password '{password}'...")
+            open_url()
+            fill_credentials(username, password)
+            break
+        except sr.UnknownValueError:
+            print("Speech recognition could not understand audio.")
+        except sr.RequestError as e:
+            print(f"Could not request results from Speech Recognition service; {e}")
+    except sr.UnknownValueError:
+        print("Speech recognition could not understand audio.")
+    except sr.RequestError as e:
+        print(f"Could not request results from Speech Recognition service; {e}")
+        '''
