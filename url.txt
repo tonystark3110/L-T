@@ -28,7 +28,7 @@ FROM SCRATCH
 
 
 --------------------------------------------------------------------------------------------------
-SHORTCUT  -  scratch
+AUTOMATION
 --------------------------------------------------------------------------------------------------
 1: https://eip4bfix.lntecc.com/EIPSCMUI/SOPUI/indent-request/indentReq
 2: Click other User. (By.XPATH,'/html/body/app-root/div/div[2]/app-login/div/form/div/div/div[1]/div/div[2]/div[1]/div/div[1]/ul/li[2]/a')
@@ -43,21 +43,12 @@ SHORTCUT  -  scratch
 11:Click indent_type. (By.XPATH, '//*[@id="ActxtboxINDCIndentType"]')
 12:Click indent_type_option. (By.XPATH, '//*[@id="mat-option-94"]/span')
 13:Click issue_type. (By.XPATH, '//*[@id="ActxtboxINDCIssueType"]')
-14:Click 
+14:Click issue_type_option. (By.XPATH, '/html/body/div[2]/div[3]/div/div/mat-option[5]/span')
 --------------------------------------------------------------------------------------------------
 LOCAL HOST - starting_local.py
 --------------------------------------------------------------------------------------------------
 1: Run EIProot (npm start)
 2: Run SOPUI (npm start)
 3: http://localhost:4200/indent-request/indentReq
-4: Click other User. (By.XPATH,'/html/body/app-root/div/div[2]/app-login/div/form/div/div/div[1]/div/div[2]/div[1]/div/div[1]/ul/li[2]/a')
-5: Click on the Username bar.  (By.XPATH, '//*[@id="username"]')
-6: Click on the Password bar.  (By.XPATH, '//*[@id="password-field"]')
-7: Click the login button.     (By.XPATH, '//*[@id="login-submit"]')
-8: Click Create new indent button.(By.XPATH,'//*[@id="ibtINDADD"')  
-9: Press job bar, add input and click the arrow button.
-10: Press Warehouse bar and add input, click the arrow button.
-
-
 
 
