@@ -44,6 +44,9 @@ AUTOMATION
 12:Click indent_type_option. (By.XPATH, '//*[@id="mat-option-94"]/span')
 13:Click issue_type. (By.XPATH, '//*[@id="ActxtboxINDCIssueType"]')
 14:Click issue_type_option. (By.XPATH, '/html/body/div[2]/div[3]/div/div/mat-option[5]/span')
+
+
+
 --------------------------------------------------------------------------------------------------
 LOCAL HOST - starting_local.py
 --------------------------------------------------------------------------------------------------
