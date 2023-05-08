@@ -37,9 +37,13 @@ SHORTCUT  -  scratch
 5: Click the login button.     (By.XPATH, '//*[@id="login-submit"]')
 6: Click Create new indent button.(By.XPATH,'//*[@id="ibtINDADD"')
 7: Click warehouse. (By.XPATH, '//*[@id="ActxtboxINDCWarehouse"]')
-8. Click option. (By.XPATH, '//*[@id="mat-option-26"]/span/span')
-
-
+8: Click warehouse_option. (By.XPATH, '//*[@id="mat-option-26"]/span/span')
+9: Click stock_job. (By.XPATH, '//*[@id="ActxtboxINDCAccountingCentre"]')
+10:Click stock_job_option. (By.XPATH, '//*[@id="mat-option-48"]/span/span')
+11:Click indent_type. (By.XPATH, '//*[@id="ActxtboxINDCIndentType"]')
+12:Click indent_type_option. (By.XPATH, '//*[@id="mat-option-94"]/span')
+13:Click issue_type. (By.XPATH, '//*[@id="ActxtboxINDCIssueType"]')
+14:Click 
 --------------------------------------------------------------------------------------------------
 LOCAL HOST - starting_local.py
 --------------------------------------------------------------------------------------------------
