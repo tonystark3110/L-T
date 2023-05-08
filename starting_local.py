@@ -99,47 +99,22 @@ create_indent.click()
 time.sleep(2)
 warehouse = driver.find_element(By.XPATH, '//*[@id="ActxtboxINDCWarehouse"]')
 warehouse.click()
+time.sleep(4)
+warehouse_option = driver.find_element(By.XPATH, '//*[@id="mat-option-26"]/span/span')
+warehouse_option.click()
+time.sleep(4)  
+stock_job = driver.find_element(By.XPATH, '//*[@id="ActxtboxINDCAccountingCentre"]')
+stock_job.click()
+time.sleep(1)
+stock_job_option = driver.find_element(By.XPATH, '//*[@id="mat-option-48"]/span/span')
+stock_job_option.click()
+time.sleep(3)  
+indent_type = driver.find_element(By.XPATH, '//*[@id="ActxtboxINDCIndentType"]')
+indent_type.click()
 time.sleep(3)
-option = driver.find_element(By.XPATH, '//*[@id="mat-option-26"]/span/span')
-option.click()
-time.sleep(500)
-
-
-'''
-# function to fill in login credentials and click login button
-def fill_credentials(username, password):
-    try:
-        username_field = driver.find_element_by_id("Username")
-        password_field = driver.find_element_by_id("Password")
-        username_field.send_keys(username)
-        password_field.send_keys(password)
-        password_field.send_keys(Keys.RETURN)
-    except:
-        print("Could not fill in login credentials or click login button.")
-
-# loop for continuous voice recognition
-while True:
-    # get login credentials
-    with sr.Microphone() as source:
-        print("Speak your username...")
-        audio = r.listen(source)
-    try:
-        username = r.recognize_google(audio)
-        with sr.Microphone() as source:
-            print("Speak your password...")
-            audio = r.listen(source)
-        try:
-            password = r.recognize_google(audio)
-            print(f"Logging in with username '{username}' and password '{password}'...")
-            open_url()
-            fill_credentials(username, password)
-            break
-        except sr.UnknownValueError:
-            print("Speech recognition could not understand audio.")
-        except sr.RequestError as e:
-            print(f"Could not request results from Speech Recognition service; {e}")
-    except sr.UnknownValueError:
-        print("Speech recognition could not understand audio.")
-    except sr.RequestError as e:
-        print(f"Could not request results from Speech Recognition service; {e}")
-        '''
+indent_type_option = driver.find_element(By.XPATH, '//*[@id="mat-option-94"]/span')
+indent_type_option.click()
+time.sleep(3)
+issue_type =  driver.find_element(By.XPATH, '//*[@id="ActxtboxINDCIssueType"]')
+issue_type.click()
+time.sleep(5) #pakka
