@@ -1,6 +1,8 @@
 task: https://eip4dev.lntecc.com/EIPSCMUI/SOPUI/Warehouse/MaterialIssue
       https://eip4bfix.lntecc.com/EIPSCMUI/SOPUI/indent-request/indentReq
-
+      https://eip4uat1.lntecc.com/eiproot/login
+Guest wifi password :932735
+                     110643
 --------------------------------------------------------------------------------------------------
 Username & Password
 --------------------------------------------------------------------------------------------------
@@ -13,9 +15,16 @@ Username & Password
 1. Username - mmurali
 2. Password - E210a#04P1e&bfix
 
+(UAT1)
+1. Username - mmurali
+2. Password - A110w#40E1p&uat
+
+(Guest wifi)
+1.Username - manikandan
+2.password - 932735
 
 --------------------------------------------------------------------------------------------------
-FROM SCRATCH
+FROM SCRATCHS
 --------------------------------------------------------------------------------------------------
 1: https://eip4dev.lntecc.com/eiproot/login
 2: Press other User.
