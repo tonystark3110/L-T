@@ -113,7 +113,8 @@ except sr.UnknownValueError:
 except sr.RequestError as e:
     print("Error:" , str(e))
 
-trimtext = text.split(" ")
+conversion = convert_special_char(text)
+trimtext = conversion.split(" ")
 username.send_keys("".join(trimtext))
 
 #username.send_keys("mmurali")
