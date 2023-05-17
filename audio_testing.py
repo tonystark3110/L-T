@@ -144,6 +144,8 @@ except sr.UnknownValueError:
 except sr.RequestError as e:
     print("Error:" , str(e))
 
+
+
 my_dict = {
     "80104": '/html/body/div[2]/div[3]/div/div/mat-option[1]/span/span',
     "80137": '/html/body/div[2]/div[3]/div/div/mat-option[2]/span/span',
@@ -207,22 +209,23 @@ else:
 stock_job_option = driver.find_element(By.XPATH, value)
 stock_job_option.click()
 time.sleep(3)  
-indent_type = driver.find_element(By.XPATH, '//*[@id="ActxtboxINDCIndentType"]')
+indent_type = driver.find_element(By.XPATH, '/html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[2]/div/div/mat-horizontal-stepper/div[2]/div[1]/app-indent-create-header/div/mat-accordion/mat-expansion-panel[2]/div/div/div/div[1]/eipautocomplete/mat-form-field/div/div[1]/div/input')
 indent_type.click()
-time.sleep(3)
-indent_type_option = driver.find_element(By.XPATH, '//*[@id="mat-option-94"]/span')
+time.sleep(2)
+indent_type_option = driver.find_element(By.XPATH, '/html/body/div[2]/div[3]/div/div/mat-option[2]/span/span')
 indent_type_option.click()
-time.sleep(3)
-issue_type = driver.find_element(By.XPATH, '//*[@id="ActxtboxINDCIssueType"]')
+time.sleep(2)
+issue_type = driver.find_element(By.XPATH, '/html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[2]/div/div/mat-horizontal-stepper/div[2]/div[1]/app-indent-create-header/div/mat-accordion/mat-expansion-panel[2]/div/div/div/div[2]/eipautocomplete/mat-form-field/div/div[1]/div/input')
 issue_type.click()
-time.sleep(3) #pakka
-issue_type_option = driver.find_element(By.XPATH, '/html/body/div[2]/div[3]/div/div/mat-option[5]/span')
+time.sleep(2)
+issue_type_option = driver.find_element(By.XPATH, '/html/body/div[2]/div[3]/div/div/mat-option[2]/span/span')
 issue_type_option.click()
-priority = driver.find_element(By.XPATH, '//*[@id="ICpriority"]')
-priority.click()
+time.sleep(2)
+priority = driver.find_element(By.XPATH, '/html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[2]/div/div/mat-horizontal-stepper/div[2]/div[1]/app-indent-create-header/div/mat-accordion/mat-expansion-panel[2]/div/div/div/div[3]/eipautocomplete/mat-form-field/div/div[1]/div/input')
+priority.click()                          
 time.sleep(1)
-priority_option = driver.find_element(By.XPATH, '//*[@id="mat-option-24"]/span/span')
-priority_option.click()
+priority_option = driver.find_element(By.XPATH, '/html/body/div[2]/div[3]/div/div/mat-option[2]/span/span')
+priority_option.click()                     
 time.sleep(500)
 
 
