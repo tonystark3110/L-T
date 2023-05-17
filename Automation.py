@@ -10,6 +10,8 @@ import os
 from playsound import playsound
 r = sr.Recognizer()
 
+text = "80172"
+
 
 def texttospeech(text, filename):
     filename = filename + '.mp3'
@@ -93,7 +95,7 @@ login.click()
 time.sleep(3)
 session = driver.find_element(By.XPATH, '//*[@id="mat-dialog-0"]/eipmessagebox/div/div[3]/button')
 session.click()
-time.sleep(9)
+time.sleep(11)
 create_indent = driver.find_element(By.XPATH, '//*[@id="ibtINDADD"]')
 create_indent.click()
 time.sleep(2)
@@ -105,8 +107,68 @@ warehouse_option.click()
 time.sleep(4)  
 stock_job = driver.find_element(By.XPATH, '//*[@id="ActxtboxINDCAccountingCentre"]')
 stock_job.click()
-time.sleep(1)
-stock_job_option = driver.find_element(By.XPATH, '//*[@id="mat-option-48"]/span/span')
+time.sleep(4)
+my_dict = {
+    "80104": '/html/body/div[2]/div[3]/div/div/mat-option[1]/span/span',
+    "80137": '/html/body/div[2]/div[3]/div/div/mat-option[2]/span/span',
+    "80138": '/html/body/div[2]/div[3]/div/div/mat-option[3]/span/span',
+    "80139": '/html/body/div[2]/div[3]/div/div/mat-option[4]/span/span',
+    "80140": '/html/body/div[2]/div[3]/div/div/mat-option[5]/span/span',
+    "80147": '/html/body/div[2]/div[3]/div/div/mat-option[6]/span/span',
+    "80148": '/html/body/div[2]/div[3]/div/div/mat-option[7]/span/span',
+    "80149": '/html/body/div[2]/div[3]/div/div/mat-option[8]/span/span',
+    "80150": '/html/body/div[2]/div[3]/div/div/mat-option[9]/span/span',
+    "80151": '/html/body/div[2]/div[3]/div/div/mat-option[10]/span/span',
+    "80152": '/html/body/div[2]/div[3]/div/div/mat-option[11]/span/span',
+    "80153": '/html/body/div[2]/div[3]/div/div/mat-option[12]/span/span',
+    "80154": '/html/body/div[2]/div[3]/div/div/mat-option[13]/span/span',
+    "80155": '/html/body/div[2]/div[3]/div/div/mat-option[14]/span/span',
+    "80156": '/html/body/div[2]/div[3]/div/div/mat-option[15]/span/span',
+    "80157": '/html/body/div[2]/div[3]/div/div/mat-option[16]/span/span',
+    "80158": '/html/body/div[2]/div[3]/div/div/mat-option[17]/span/span',
+    "80159": '/html/body/div[2]/div[3]/div/div/mat-option[18]/span/span',
+    "80160": '/html/body/div[2]/div[3]/div/div/mat-option[19]/span/span',
+    "80162": '/html/body/div[2]/div[3]/div/div/mat-option[20]/span/span',
+    "80163": '/html/body/div[2]/div[3]/div/div/mat-option[21]/span/span',
+    "80164": '/html/body/div[2]/div[3]/div/div/mat-option[22]/span/span',
+    "80165": '/html/body/div[2]/div[3]/div/div/mat-option[23]/span/span',
+    "80166": '/html/body/div[2]/div[3]/div/div/mat-option[24]/span',
+    "80167": '/html/body/div[2]/div[3]/div/div/mat-option[25]/span',
+    "80168": '/html/body/div[2]/div[3]/div/div/mat-option[26]/span/span',
+    "80169": '/html/body/div[2]/div[3]/div/div/mat-option[27]/span/span',
+    "80170": '/html/body/div[2]/div[3]/div/div/mat-option[28]/span/span',
+    "80171": '/html/body/div[2]/div[3]/div/div/mat-option[29]/span/span',
+    "80172": '/html/body/div[2]/div[3]/div/div/mat-option[30]/span/span',
+    "80173": '/html/body/div[2]/div[3]/div/div/mat-option[31]/span/span',
+    "80174": '/html/body/div[2]/div[3]/div/div/mat-option[32]/span',
+    "80177": '/html/body/div[2]/div[3]/div/div/mat-option[33]/span/span',
+    "80178": '/html/body/div[2]/div[3]/div/div/mat-option[34]/span/span',
+    "80179": '/html/body/div[2]/div[3]/div/div/mat-option[35]/span/span',
+    "80180": '/html/body/div[2]/div[3]/div/div/mat-option[36]/span/span',
+    "80182": '/html/body/div[2]/div[3]/div/div/mat-option[37]/span/span',
+    "80184": '/html/body/div[2]/div[3]/div/div/mat-option[38]/span/span',
+    "80185": '/html/body/div[2]/div[3]/div/div/mat-option[39]/span',
+    "80186": '/html/body/div[2]/div[3]/div/div/mat-option[40]/span/span',
+    "80187": '/html/body/div[2]/div[3]/div/div/mat-option[41]/span/span',
+    "80188": '/html/body/div[2]/div[3]/div/div/mat-option[42]/span',
+    "80189": '/html/body/div[2]/div[3]/div/div/mat-option[43]/span/span',
+    "80190": '/html/body/div[2]/div[3]/div/div/mat-option[44]/span/span',
+    "80191": '/html/body/div[2]/div[3]/div/div/mat-option[45]/span',
+    "80192": '/html/body/div[2]/div[3]/div/div/mat-option[46]/span',
+    "80193": '/html/body/div[2]/div[3]/div/div/mat-option[47]/span/span',
+    "80194": '/html/body/div[2]/div[3]/div/div/mat-option[48]/span/span',
+    "80195": '/html/body/div[2]/div[3]/div/div/mat-option[49]/span/span',
+    "80196": '/html/body/div[2]/div[3]/div/div/mat-option[50]/span'
+}
+
+
+if text in my_dict:
+    value = my_dict[text]
+    print("Value:", value)
+else:
+    print("Key not found in the dictionary.")
+
+stock_job_option = driver.find_element(By.XPATH, value)
 stock_job_option.click()
 time.sleep(3)  
 indent_type = driver.find_element(By.XPATH, '//*[@id="ActxtboxINDCIndentType"]')
