@@ -10,7 +10,8 @@ import os
 from playsound import playsound
 r = sr.Recognizer()
 
-text = "80172"
+text_3 = "80172"
+text_4 = "general"
 
 
 def texttospeech(text, filename):
@@ -108,7 +109,8 @@ time.sleep(4)
 stock_job = driver.find_element(By.XPATH, '//*[@id="ActxtboxINDCAccountingCentre"]')
 stock_job.click()
 time.sleep(4)
-my_dict = {
+
+my_dict_1 = {
     "80104": '/html/body/div[2]/div[3]/div/div/mat-option[1]/span/span',
     "80137": '/html/body/div[2]/div[3]/div/div/mat-option[2]/span/span',
     "80138": '/html/body/div[2]/div[3]/div/div/mat-option[3]/span/span',
@@ -162,26 +164,34 @@ my_dict = {
 }
 
 
-if text in my_dict:
-    value = my_dict[text]
-    print("Value:", value)
+if text_3 in my_dict_1:
+    value_1 = my_dict_1[text_3]
+    print("Value:", value_1)
 else:
     print("Key not found in the dictionary.")
 
-stock_job_option = driver.find_element(By.XPATH, value)
+
+stock_job_option = driver.find_element(By.XPATH, value_1)
 stock_job_option.click()
 time.sleep(3)  
 indent_type = driver.find_element(By.XPATH, '/html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[2]/div/div/mat-horizontal-stepper/div[2]/div[1]/app-indent-create-header/div/mat-accordion/mat-expansion-panel[2]/div/div/div/div[1]/eipautocomplete/mat-form-field/div/div[1]/div/input')
 indent_type.click()
+my_dict_2 = {
+
+   "general" : '/html/body/div[2]/div[3]/div/div/mat-option[1]/span',
+    "plant and machinery" : '/html/body/div[2]/div[3]/div/div/mat-option[2]/span/span'
+}
+
+if text_4 in my_dict_2:
+    value_2 = my_dict_2[text_4]
+    print("Value:", value_2)
+else:
+    print("Key not found in the dictionary.")
+
 time.sleep(2)
-indent_type_option = driver.find_element(By.XPATH, '/html/body/div[2]/div[3]/div/div/mat-option[2]/span/span')
+
+indent_type_option = driver.find_element(By.XPATH, value_2)
 indent_type_option.click()
-time.sleep(2)
-issue_type = driver.find_element(By.XPATH, '/html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[2]/div/div/mat-horizontal-stepper/div[2]/div[1]/app-indent-create-header/div/mat-accordion/mat-expansion-panel[2]/div/div/div/div[2]/eipautocomplete/mat-form-field/div/div[1]/div/input')
-issue_type.click()
-time.sleep(2)
-issue_type_option = driver.find_element(By.XPATH, '/html/body/div[2]/div[3]/div/div/mat-option[2]/span/span')
-issue_type_option.click()
 time.sleep(2)
 priority = driver.find_element(By.XPATH, '/html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[2]/div/div/mat-horizontal-stepper/div[2]/div[1]/app-indent-create-header/div/mat-accordion/mat-expansion-panel[2]/div/div/div/div[3]/eipautocomplete/mat-form-field/div/div[1]/div/input')
 priority.click()                          
