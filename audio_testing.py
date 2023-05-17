@@ -254,6 +254,6 @@ priority.click()
 time.sleep(1)
 priority_option = driver.find_element(By.XPATH, '/html/body/div[2]/div[3]/div/div/mat-option[2]/span/span')
 priority_option.click()                     
-time.sleep(500)
-
-
+time.sleep(2)
+next = driver.find_element(By.XPATH, '/html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[3]/div/div/button[2]')
+next.click()
