@@ -8,7 +8,10 @@ import time
 from gtts import gTTS
 import os
 from playsound import playsound
+r = sr.Recognizer()
 
+text_3 = "80172"
+text_4 = "general"
 
 
 
@@ -40,82 +43,31 @@ def convert_special_char(text):
                     temp = temp.replace('space', '')
                 elif character == 'dash':
                     temp=temp.replace('dash','-')
-                elif character == 'ampersand' :
-                    temp=temp.replace('ampersand','&')
     return temp
 
 
 
 
 # predefined URL
-url = "https://eip4uat1.lntecc.com/eiproot/login"
-driver = webdriver.Chrome(executable_path="C:\\Users\\Manikandan\\Downloads\\chromedriver_win32\\chromedriver.exe")
+url = "https://eip4bfix.lntecc.com/EIPSCMUI/SOPUI/indent-request/indentReq"
+driver = webdriver.Chrome(executable_path="C:\\Users\\20325730\\Desktop\\ZZZ\\chromedriver_win32\\chromedriver.exe")
 driver.get(url)
 driver.maximize_window()
-time.sleep(4)
-#temporary code starts 
-advanced = driver.find_element(By.XPATH,'//*[@id="details-button"]')
-advanced.click()
-time.sleep(1)
-proceed = driver.find_element(By.XPATH,'//*[@id="proceed-link"]')
-proceed.click()
-time.sleep(3)
-#temporary code ends 
+#time.sleep(1000)
 
 other_user = driver.find_element(By.XPATH,'/html/body/app-root/div/div[2]/app-login/div/form/div/div/div[1]/div/div[2]/div[1]/div/div[1]/ul/li[2]/a')
 other_user.click()
 username = driver.find_element(By.XPATH, '//*[@id="username"]')
 username.click()
-
-r = sr.Recognizer()
-with sr.Microphone() as source:
-    print("Listening...")
-    audio = r.listen(source)
-try:
-    print("Recognizing")
-    text_1 = r.recognize_google(audio)
-    
-    print("you said:", text_1)
-except sr.UnknownValueError:
-    print("sorry , i could not understand")
-except sr.RequestError as e:
-    print("Error:" , str(e))
-
-conversion = convert_special_char(text_1)
-trimtext = conversion.split(" ")
-username.send_keys("".join(trimtext))
-
-#username.send_keys("mmurali")
+username.send_keys("mmurali")
 password = driver.find_element(By.XPATH, '//*[@id="password-field"]')
 password.click()
-
-r = sr.Recognizer()
-with sr.Microphone() as source:
-    print("Listening...")
-    audio = r.listen(source)
-try:
-    print("Recognizing")
-    text_2 = r.recognize_google(audio)
-    
-    print("you said:", text_2)
-except sr.UnknownValueError:
-    print("sorry , i could not understand")
-except sr.RequestError as e:
-    print("Error:" , str(e))
-
-conversion = convert_special_char(text_2)
-trimtext = conversion.split(" ")
-password.send_keys("".join(trimtext))
-
-#password.send_keys("A110w#40E1p&uat")
-time.sleep(2)
+password.send_keys("E210a#04P1e&bfix")
 login = driver.find_element(By.XPATH, '//*[@id="login-submit"]')
 login.click()
-#temporary code starts 
 time.sleep(3)
 session = driver.find_element(By.XPATH, '//*[@id="mat-dialog-0"]/eipmessagebox/div/div[3]/button')
 session.click()
-#temporary code ends
 time.sleep(9)
 create_indent = driver.find_element(By.XPATH, '//*[@id="ibtINDADD"]')
 create_indent.click()
@@ -123,28 +75,12 @@ time.sleep(2)
 warehouse = driver.find_element(By.XPATH, '//*[@id="ActxtboxINDCWarehouse"]')
 warehouse.click()
 time.sleep(4)
-warehouse_option = driver.find_element(By.XPATH, '//*[@id="mat-option-26"]/span/span')
+warehouse_option = driver.find_element(By.XPATH, '/html/body/div[2]/div[3]/div/div/mat-option/span')
 warehouse_option.click()
 time.sleep(4)  
 stock_job = driver.find_element(By.XPATH, '//*[@id="ActxtboxINDCAccountingCentre"]')
 stock_job.click()
-time.sleep(3)
-
-r = sr.Recognizer()
-with sr.Microphone() as source:
-    print("Listening...")
-    audio = r.listen(source)
-try:
-    print("Recognizing")
-    text_3 = r.recognize_google(audio)
-    
-    print("you said:", text_3)
-except sr.UnknownValueError:
-    print("sorry , i could not understand")
-except sr.RequestError as e:
-    print("Error:" , str(e))
-
-
+time.sleep(4)
 
 my_dict_1 = {
     "80104": '/html/body/div[2]/div[3]/div/div/mat-option[1]/span/span',
@@ -206,26 +142,12 @@ if text_3 in my_dict_1:
 else:
     print("Key not found in the dictionary.")
 
+
 stock_job_option = driver.find_element(By.XPATH, value_1)
 stock_job_option.click()
 time.sleep(3)  
 indent_type = driver.find_element(By.XPATH, '/html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[2]/div/div/mat-horizontal-stepper/div[2]/div[1]/app-indent-create-header/div/mat-accordion/mat-expansion-panel[2]/div/div/div/div[1]/eipautocomplete/mat-form-field/div/div[1]/div/input')
 indent_type.click()
-
-r = sr.Recognizer()
-with sr.Microphone() as source:
-    print("Listening...")
-    audio = r.listen(source)
-try:
-    print("Recognizing")
-    text_4 = r.recognize_google(audio)
-    
-    print("you said:", text_4)
-except sr.UnknownValueError:
-    print("sorry , i could not understand")
-except sr.RequestError as e:
-    print("Error:" , str(e))
-
 my_dict_2 = {
 
    "general" : '/html/body/div[2]/div[3]/div/div/mat-option[1]/span',
@@ -246,14 +168,15 @@ time.sleep(2)
 issue_type = driver.find_element(By.XPATH, '/html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[2]/div/div/mat-horizontal-stepper/div[2]/div[1]/app-indent-create-header/div/mat-accordion/mat-expansion-panel[2]/div/div/div/div[2]/eipautocomplete/mat-form-field/div/div[1]/div/input')
 issue_type.click()
 time.sleep(2)
-issue_type_option = driver.find_element(By.XPATH, '/html/body/div[2]/div[3]/div/div/mat-option[2]/span/span')
+issue_type_option = driver.find_element(By.XPATH, '/html/body/div[2]/div[3]/div/div/mat-option[6]/span')
 issue_type_option.click()
 time.sleep(2)
 priority = driver.find_element(By.XPATH, '/html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[2]/div/div/mat-horizontal-stepper/div[2]/div[1]/app-indent-create-header/div/mat-accordion/mat-expansion-panel[2]/div/div/div/div[3]/eipautocomplete/mat-form-field/div/div[1]/div/input')
 priority.click()                          
 time.sleep(1)
 priority_option = driver.find_element(By.XPATH, '/html/body/div[2]/div[3]/div/div/mat-option[2]/span/span')
-priority_option.click()                     
+priority_option.click()                         
+time.sleep(2)
+next = driver.find_element(By.XPATH, '/html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[3]/div/div/button[2]')
+next.click()
 time.sleep(500)
-
-
