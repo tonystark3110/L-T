@@ -10,39 +10,7 @@ import os
 from playsound import playsound
 
 
-file = "good"
-i="0"
-flag = True
 
-
-def texttospeech(text, filename):
-    filename = filename + '.mp3'
-    flag = True
-    while flag:
-        try:
-            tts = gTTS(text=text, lang='en', slow=False)
-            tts.save(filename)
-            flag = False
-        except:
-            print('Trying again')
-    playsound(filename)
-    os.remove(filename)
-    return
-
-def speechtotext(duration):
-    global i, addr, passwrd
-    r = sr.Recognizer()
-    with sr.Microphone() as source:
-        r.adjust_for_ambient_noise(source, duration=1)
-        # texttospeech("speak", file + i)
-        # i = i + str(1)
-        playsound('speak.mp3')
-        audio = r.listen(source, phrase_time_limit=duration)
-    try:
-        response = r.recognize_google(audio)
-    except:
-        response = 'N'
-    return response
 
 
 def convert_special_char(text):
@@ -105,15 +73,15 @@ with sr.Microphone() as source:
     audio = r.listen(source)
 try:
     print("Recognizing")
-    text = r.recognize_google(audio)
+    text_1 = r.recognize_google(audio)
     
-    print("you said:", text)
+    print("you said:", text_1)
 except sr.UnknownValueError:
     print("sorry , i could not understand")
 except sr.RequestError as e:
     print("Error:" , str(e))
 
-conversion = convert_special_char(text)
+conversion = convert_special_char(text_1)
 trimtext = conversion.split(" ")
 username.send_keys("".join(trimtext))
 
@@ -127,15 +95,15 @@ with sr.Microphone() as source:
     audio = r.listen(source)
 try:
     print("Recognizing")
-    text = r.recognize_google(audio)
+    text_2 = r.recognize_google(audio)
     
-    print("you said:", text)
+    print("you said:", text_2)
 except sr.UnknownValueError:
     print("sorry , i could not understand")
 except sr.RequestError as e:
     print("Error:" , str(e))
 
-conversion = convert_special_char(text)
+conversion = convert_special_char(text_2)
 trimtext = conversion.split(" ")
 password.send_keys("".join(trimtext))
 
@@ -160,7 +128,21 @@ warehouse_option.click()
 time.sleep(4)  
 stock_job = driver.find_element(By.XPATH, '//*[@id="ActxtboxINDCAccountingCentre"]')
 stock_job.click()
-time.sleep(1)
+time.sleep(3)
+
+r = sr.Recognizer()
+with sr.Microphone() as source:
+    print("Listening...")
+    audio = r.listen(source)
+try:
+    print("Recognizing")
+    text_3 = r.recognize_google(audio)
+    
+    print("you said:", text_3)
+except sr.UnknownValueError:
+    print("sorry , i could not understand")
+except sr.RequestError as e:
+    print("Error:" , str(e))
 
 my_dict = {
     "80104": '/html/body/div[2]/div[3]/div/div/mat-option[1]/span/span',
@@ -216,8 +198,8 @@ my_dict = {
 }
 
 
-if text in my_dict:
-    value = my_dict[text]
+if text_3 in my_dict:
+    value = my_dict[text_3]
     print("Value:", value)
 else:
     print("Key not found in the dictionary.")
@@ -244,41 +226,3 @@ priority_option.click()
 time.sleep(500)
 
 
-'''
-# function to fill in login credentials and click login button
-def fill_credentials(username, password):
-    try:
-        username_field = driver.find_element_by_id("Username")
-        password_field = driver.find_element_by_id("Password")
-        username_field.send_keys(username)
-        password_field.send_keys(password)
-        password_field.send_keys(Keys.RETURN)
-    except:
-        print("Could not fill in login credentials or click login button.")
-
-# loop for continuous voice recognition
-while True:
-    # get login credentials
-    with sr.Microphone() as source:
-        print("Speak your username...")
-        audio = r.listen(source)
-    try:
-        username = r.recognize_google(audio)
-        with sr.Microphone() as source:
-            print("Speak your password...")
-            audio = r.listen(source)
-        try:
-            password = r.recognize_google(audio)
-            print(f"Logging in with username '{username}' and password '{password}'...")
-            open_url()
-            fill_credentials(username, password)
-            break
-        except sr.UnknownValueError:
-            print("Speech recognition could not understand audio.")
-        except sr.RequestError as e:
-            print(f"Could not request results from Speech Recognition service; {e}")
-    except sr.UnknownValueError:
-        print("Speech recognition could not understand audio.")
-    except sr.RequestError as e:
-        print(f"Could not request results from Speech Recognition service; {e}")
-        '''
