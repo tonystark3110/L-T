@@ -64,3 +64,32 @@ LOCAL HOST - starting_local.py
 3: http://localhost:4200/indent-request/indentReq
 
 
+
+
+
+
+--------------------------------------------------------------------------------------------------
+VOICE INPUT
+--------------------------------------------------------------------------------------------------
+
+
+
+r = sr.Recognizer()
+with sr.Microphone() as source:
+    print("Listening...")
+    audio = r.listen(source)
+try:
+    print("Recognizing")
+    text_1 = r.recognize_google(audio)
+    
+    print("you said:", text_1)
+except sr.UnknownValueError:
+    print("sorry , i could not understand")
+except sr.RequestError as e:
+    print("Error:" , str(e))
+
+conversion = convert_special_char(text_1)
+trimtext = conversion.split(" ")
+username.send_keys("".join(trimtext))
+
+
