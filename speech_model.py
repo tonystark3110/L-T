@@ -49,3 +49,11 @@ while True:
         print(recognized_text)
         break
 
+# Example variable
+text = "This is a sample text with spaces."
+
+# Remove spaces using the replace() function
+text_without_spaces = text.replace(" ", "")
+
+# Print the modified variable
+print(text_without_spaces)
