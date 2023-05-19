@@ -10,14 +10,33 @@ import os
 from playsound import playsound
 from keyboard import press
 r = sr.Recognizer()
-text_2 = "FCWI1153"
+from vosk import Model, KaldiRecognizer
+import pyaudio
+import json
+
+#text_2 = "FCWI1153"
 text_3 = "FCWI1153"
 text_4 = "1562"
 text_5 = "general"
 #spot="fcw"
 
 
+model = Model('C:\\Users\\20325730\\Desktop\\speech_rec\\vosk-model-en-us-0.22')
+recognizer = KaldiRecognizer(model, 16000)
 
+word_replacements = {
+    "zero": "0",
+    "one": "1",
+    "two": "2",
+    "three": "3",
+    "four": "4",
+    "five": "5",
+    "six": "6",
+    "seven": "7",
+    "eight": "8",
+    "nine": "9"
+    # Add more word replacements as needed
+}
 
 def convert_special_char(text):
     temp=text
@@ -77,7 +96,38 @@ create_indent.click()
 time.sleep(2)
 job = driver.find_element(By.XPATH, '/html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[2]/div/div/mat-horizontal-stepper/div[2]/div[1]/app-indent-create-header/div/mat-accordion/mat-expansion-panel[1]/div/div/div/div[1]/div/eipautocomplete/mat-form-field/div/div[1]/div/input')
 job.click()
-job.send_keys("fcw")
+
+cap = pyaudio.PyAudio()
+stream = cap.open(format=pyaudio.paInt16, channels=1, rate=16000, input=True, frames_per_buffer=8192)
+stream.start_stream()
+
+print("Listening...")
+
+while True:
+    data = stream.read(4096)
+    if len(data) == 0:
+        break
+
+    if recognizer.AcceptWaveform(data):
+        result = recognizer.Result()
+        result_json = json.loads(result)
+        recognized_text = result_json["text"]
+
+        # Convert recognized words to integers and apply word replacements
+        recognized_numbers = recognized_text.split()
+        for i, word in enumerate(recognized_numbers):
+            if word.isdigit():
+                recognized_numbers[i] = str(int(word))
+            elif word in word_replacements:
+                recognized_numbers[i] = word_replacements[word]
+
+        # Print the recognized text with spaces
+        recognized_text = " ".join(recognized_numbers)
+        break
+
+text_2 = recognized_text.replace(" ","")
+
+job.send_keys(text_2)
 time.sleep(2)
 #
 #
@@ -190,7 +240,7 @@ time.sleep(2)
 #time.sleep(2)
  
 my_dict_1 = {
-    "FCWI1153": '/html/body/div[2]/div[3]/div/div/mat-option[2]/span/span'
+    "1153": '/html/body/div[2]/div[3]/div/div/mat-option[2]/span/span'
     
     
 }
