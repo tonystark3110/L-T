@@ -2,7 +2,7 @@ from vosk import Model, KaldiRecognizer
 import pyaudio
 import json
 
-model = Model('C:\\Users\\20325730\\Desktop\\speech_rec\\vosk-model-en-us-0.22')
+model = Model('C:\\Users\Manikandan\\Desktop\L-T-main\\vosk-model-en-us-0.22')
 recognizer = KaldiRecognizer(model, 16000)
 
 cap = pyaudio.PyAudio()
@@ -20,7 +20,8 @@ word_replacements = {
     "six": "6",
     "seven": "7",
     "eight": "8",
-    "nine": "9"
+    "nine": "9",
+    "eye" : "i"
     # Add more word replacements as needed
 }
 
@@ -46,14 +47,7 @@ while True:
 
         # Print the recognized text with spaces
         recognized_text = " ".join(recognized_numbers)
-        print(recognized_text)
         break
 
-# Example variable
-text = "This is a sample text with spaces."
-
-# Remove spaces using the replace() function
-text_without_spaces = text.replace(" ", "")
-
-# Print the modified variable
-print(text_without_spaces)
+text_2 = recognized_text.replace(" ","")
+print (text_2)
