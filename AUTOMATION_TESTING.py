@@ -15,9 +15,9 @@ import pyaudio
 import json
 
 #text_2 = "FCWI1153"
-text_3 = "FCWI1153"
-text_4 = "1562"
-text_5 = "general"
+#text_3 = "FCWI1153"
+#text_4 = "1562"
+#text_5 = "general"
 #spot="fcw"
 
 
@@ -34,9 +34,50 @@ word_replacements = {
     "six": "6",
     "seven": "7",
     "eight": "8",
-    "nine": "9"
+    "nine": "9",
+    "eye" : "i"
     # Add more word replacements as needed
 }
+
+def perform_speech_recognition():
+
+
+    cap = pyaudio.PyAudio()
+    stream = cap.open(format=pyaudio.paInt16, channels=1, rate=16000, input=True, frames_per_buffer=8192)
+    stream.start_stream()
+
+    
+
+    print("Listening...")
+
+    while True:
+        data = stream.read(4096)
+        if len(data) == 0:
+            break
+
+        if recognizer.AcceptWaveform(data):
+            result = recognizer.Result()
+            result_json = json.loads(result)
+            recognized_text = result_json["text"]
+
+            # Convert recognized words to integers and apply word replacements
+            recognized_numbers = recognized_text.split()
+            for i, word in enumerate(recognized_numbers):
+                if word.isdigit():
+                    recognized_numbers[i] = str(int(word))
+                elif word in word_replacements:
+                    recognized_numbers[i] = word_replacements[word]
+
+            # Print the recognized text with spaces
+            recognized_text = " ".join(recognized_numbers)
+            break
+
+    text_2 = recognized_text.replace(" ", "")
+    print(text_2)
+    return text_2
+
+
+   
 
 def convert_special_char(text):
     temp=text
@@ -97,36 +138,7 @@ time.sleep(2)
 job = driver.find_element(By.XPATH, '/html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[2]/div/div/mat-horizontal-stepper/div[2]/div[1]/app-indent-create-header/div/mat-accordion/mat-expansion-panel[1]/div/div/div/div[1]/div/eipautocomplete/mat-form-field/div/div[1]/div/input')
 job.click()
 
-cap = pyaudio.PyAudio()
-stream = cap.open(format=pyaudio.paInt16, channels=1, rate=16000, input=True, frames_per_buffer=8192)
-stream.start_stream()
-
-print("Listening...")
-
-while True:
-    data = stream.read(4096)
-    if len(data) == 0:
-        break
-
-    if recognizer.AcceptWaveform(data):
-        result = recognizer.Result()
-        result_json = json.loads(result)
-        recognized_text = result_json["text"]
-
-        # Convert recognized words to integers and apply word replacements
-        recognized_numbers = recognized_text.split()
-        for i, word in enumerate(recognized_numbers):
-            if word.isdigit():
-                recognized_numbers[i] = str(int(word))
-            elif word in word_replacements:
-                recognized_numbers[i] = word_replacements[word]
-
-        # Print the recognized text with spaces
-        recognized_text = " ".join(recognized_numbers)
-        break
-
-text_2 = recognized_text.replace(" ","")
-
+text_2 = perform_speech_recognition()
 job.send_keys(text_2)
 time.sleep(2)
 #
@@ -240,7 +252,7 @@ time.sleep(2)
 #time.sleep(2)
  
 my_dict_1 = {
-    "1153": '/html/body/div[2]/div[3]/div/div/mat-option/span'
+    "FCW1153": '/html/body/div[2]/div[3]/div/div/mat-option/span'
     
     
 }
@@ -257,7 +269,9 @@ time.sleep(2)
 job_option.click()
 warehouse = driver.find_element(By.XPATH, '//*[@id="ActxtboxINDCWarehouse"]')
 warehouse.click()
-time.sleep(2)
+time.sleep(1)
+text_4 = perform_speech_recognition()
+warehouse.send_keys(text_4)
 my_dict_2 = {
 
  "1562" : '/html/body/div[2]/div[3]/div/div/mat-option[1]/span' ,        
@@ -280,6 +294,8 @@ time.sleep(2)
 stock_job = driver.find_element(By.XPATH, '//*[@id="ActxtboxINDCAccountingCentre"]')
 stock_job.click()
 time.sleep(2)
+text_3 = perform_speech_recognition()
+stock_job.send_keys(text_3)
 
 my_dict_3 = {
     "FCWI1153": '/html/body/div[2]/div[3]/div/div/mat-option[1]/span/span',
@@ -300,6 +316,8 @@ stock_job_option.click()
 time.sleep(3)  
 indent_type = driver.find_element(By.XPATH, '/html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[2]/div/div/mat-horizontal-stepper/div[2]/div[1]/app-indent-create-header/div/mat-accordion/mat-expansion-panel[2]/div/div/div/div[1]/eipautocomplete/mat-form-field/div/div[1]/div/input')
 indent_type.click()
+text_5 = perform_speech_recognition()
+indent_type.send_keys(text_5)
 my_dict_4 = {
 
    "general" : '/html/body/div[2]/div[3]/div/div/mat-option[1]/span',
@@ -320,8 +338,25 @@ time.sleep(2)
 
 indent_type_option = driver.find_element(By.XPATH, value_4)
 indent_type_option.click()
+text_6 = perform_speech_recognition()
+indent_type_option.send_keys(text_6)
+my_dict_5 = {
+
+   "general" : '/html/body/div[2]/div[3]/div/div/mat-option[1]/span'
+    "plant and machinery" : '/html/body/div[2]/div[3]/div/div/mat-option[2]/span/span',
+    "Linear Indent" : '/html/body/div[2]/div[3]/div/div/mat-option[3]/span/span',
+    "Non Linear" :    '/html/body/div[2]/div[3]/div/div/mat-option[4]/span/span',
+    "Maintenance Linear" : '/html/body/div[2]/div[3]/div/div/mat-option[5]/span/span',
+    "Maintenance Non Linear" : '/html/body/div[2]/div[3]/div/div/mat-option[6]/span/span'
+}
+
+if text_6 in my_dict_5:
+    value_5 = my_dict_5[text_6]
+    print("Value:", value_5)
+else:
+    print("Key not found in the dictionary.")
 time.sleep(2)
-issue_type = driver.find_element(By.XPATH, '/html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[2]/div/div/mat-horizontal-stepper/div[2]/div[1]/app-indent-create-header/div/mat-accordion/mat-expansion-panel[2]/div/div/div/div[2]/eipautocomplete/mat-form-field/div/div[1]/div/input')
+issue_type = driver.find_element(By.XPATH, value_5)
 issue_type.click()
 time.sleep(2)
 issue_type_option = driver.find_element(By.XPATH, '/html/body/div[2]/div[3]/div/div/mat-option[6]/span')
@@ -342,8 +377,27 @@ time.sleep(1)
 material_group = driver.find_element(By.XPATH, '/html/body/div[2]/div[4]/div/mat-dialog-container/app-general-cart-popup/div[2]/div[1]/eipautocomplete/mat-form-field/div/div[1]/div/input')
 time.sleep(1)
 material_group.click()
+text_7 = perform_speech_recognition()
+material_group.send_keys(text_7)
+
+my_dict_6 = {
+
+   "general" : '/html/body/div[2]/div[3]/div/div/mat-option[1]/span'
+    "plant and machinery" : '/html/body/div[2]/div[3]/div/div/mat-option[2]/span/span',
+    "Linear Indent" : '/html/body/div[2]/div[3]/div/div/mat-option[3]/span/span',
+    "Non Linear" :    '/html/body/div[2]/div[3]/div/div/mat-option[4]/span/span',
+    "Maintenance Linear" : '/html/body/div[2]/div[3]/div/div/mat-option[5]/span/span',
+    "Maintenance Non Linear" : '/html/body/div[2]/div[3]/div/div/mat-option[6]/span/span'
+}
+
+if text_7 in my_dict_6:
+    value_6 = my_dict_6[text_7]
+    print("Value:", value_6)
+else:
+    print("Key not found in the dictionary.")
+
 material_group.send_keys("rope")
-material_group_option = driver.find_element(By.XPATH, ' /html/body/div[2]/div[5]/div/div/mat-option/span/span/span')
+material_group_option = driver.find_element(By.XPATH,  value_6)
 material_group_option.click()
 select_all = driver.find_element(By.XPATH, '/html/body/div[2]/div[4]/div/mat-dialog-container/app-general-cart-popup/div[2]/div[2]/eipgeneralcart/div/div/div[1]/div/div[2]/div/div[2]/div/button[2]/i')
 select_all.click() 
@@ -353,46 +407,91 @@ post.click()
 time.sleep(2)                     
 HSN = driver.find_element(By.XPATH, ' /html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[2]/div/div/mat-horizontal-stepper/div[2]/div[2]/div/kendo-grid/div/kendo-grid-list/div/div[1]/table/tbody/tr/td[3]/eipautocomplete/mat-form-field/div/div[1]/div/input')
 HSN.click()
-HSN_options = driver.find_element(By.XPATH, '/html/body/div[2]/div[3]/div/div/mat-option[1]/span/span')
+text_8 = perform_speech_recognition()
+HSN.send_keys(text_8)
+my_dict_7 = {
+
+   "general" : '/html/body/div[2]/div[3]/div/div/mat-option[1]/span'
+    "plant and machinery" : '/html/body/div[2]/div[3]/div/div/mat-option[2]/span/span',
+    "Linear Indent" : '/html/body/div[2]/div[3]/div/div/mat-option[3]/span/span',
+    "Non Linear" :    '/html/body/div[2]/div[3]/div/div/mat-option[4]/span/span',
+    "Maintenance Linear" : '/html/body/div[2]/div[3]/div/div/mat-option[5]/span/span',
+    "Maintenance Non Linear" : '/html/body/div[2]/div[3]/div/div/mat-option[6]/span/span'
+}
+
+if text_8 in my_dict_7:
+    value_7 = my_dict_7[text_8]
+    print("Value:", value_7)
+else:
+    print("Key not found in the dictionary.")
+
+HSN_options = driver.find_element(By.XPATH, value_7)
 HSN_options.click()
 time.sleep(2)
 tax_type = driver.find_element(By.XPATH,'/html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[2]/div/div/mat-horizontal-stepper/div[2]/div[2]/div/kendo-grid/div/kendo-grid-list/div/div[1]/table/tbody/tr[1]/td[4]/div/eipautocomplete/mat-form-field/div/div[1]/div/input')
 tax_type.click()
+text_9 = perform_speech_recognition()
+tax_type.send_keys(text_9)
+my_dict_8 = {
+
+   "general" : '/html/body/div[2]/div[3]/div/div/mat-option[1]/span'
+    "plant and machinery" : '/html/body/div[2]/div[3]/div/div/mat-option[2]/span/span',
+    "Linear Indent" : '/html/body/div[2]/div[3]/div/div/mat-option[3]/span/span',
+    "Non Linear" :    '/html/body/div[2]/div[3]/div/div/mat-option[4]/span/span',
+    "Maintenance Linear" : '/html/body/div[2]/div[3]/div/div/mat-option[5]/span/span',
+    "Maintenance Non Linear" : '/html/body/div[2]/div[3]/div/div/mat-option[6]/span/span'
+}
+if text_9 in my_dict_8:
+    value_8 = my_dict_8[text_9]
+    print("Value:", value_8)
+else:
+    print("Key not found in the dictionary.")
+
 time.sleep(1)
-tax_type_options = driver.find_element(By.XPATH,'/html/body/div[2]/div[3]/div/div/mat-option[2]/span')
+tax_type_options = driver.find_element(By.XPATH,value_8)
 tax_type_options.click()
 expand_list = driver.find_element(By.XPATH,'/html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[2]/div/div/mat-horizontal-stepper/div[2]/div[2]/div/kendo-grid/div/kendo-grid-list/div/div[1]/table/tbody/tr/td[10]/div/i')
 expand_list.click()
 cost_package = driver.find_element(By.XPATH,'/html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[2]/div/div/mat-horizontal-stepper/div[2]/div[2]/div/kendo-grid/div/kendo-grid-list/div/div[1]/table/tbody/tr[2]/td[2]/div/kendo-grid/div/kendo-grid-list/div/div[1]/table/tbody/tr/td[1]/kendo-combobox/span/kendo-searchbar/input')
 cost_package.click()
 time.sleep(1)
-cost_package.send_keys("acs")
+text_10 = perform_speech_recognition()
+cost_package.send_keys(text_10)
+my_dict_9 = {
+
+   "general" : '/html/body/div[2]/div[3]/div/div/mat-option[1]/span'
+    "plant and machinery" : '/html/body/div[2]/div[3]/div/div/mat-option[2]/span/span',
+    "Linear Indent" : '/html/body/div[2]/div[3]/div/div/mat-option[3]/span/span',
+    "Non Linear" :    '/html/body/div[2]/div[3]/div/div/mat-option[4]/span/span',
+    "Maintenance Linear" : '/html/body/div[2]/div[3]/div/div/mat-option[5]/span/span',
+    "Maintenance Non Linear" : '/html/body/div[2]/div[3]/div/div/mat-option[6]/span/span'
+}
+if text_10 in my_dict_9:
+    value_9 = my_dict_9[text_10]
+    print("Value:", value_9)
+else:
+    print("Key not found in the dictionary.")
+
+
 time.sleep(2)
 press('enter')
 
 time.sleep(3)
-cost_package_option = driver.find_element(By.XPATH,'/html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[2]/div/div/mat-horizontal-stepper/div[2]/div[2]/div/kendo-grid/div/kendo-grid-list/div/div[1]/table/tbody/tr[2]/td[2]/div/kendo-grid/div/kendo-grid-list/div/div[1]/table/tbody/tr/td[1]/kendo-combobox/span/kendo-searchbar/input')
+cost_package_option = driver.find_element(By.XPATH,value_9)
 cost_package_option.click()
 time.sleep(1)
 indent_qty = driver.find_element(By.XPATH,'/html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[2]/div/div/mat-horizontal-stepper/div[2]/div[2]/div/kendo-grid/div/kendo-grid-list/div/div[1]/table/tbody/tr[2]/td[2]/div/kendo-grid/div/kendo-grid-list/div/div[1]/table/tbody/tr/td[4]/mat-form-field/div/div[1]/div/input')
 indent_qty.click()
-indent_qty.send_keys("1")
+qty = perform_speech_recognition()
+text_11 = word_replacements[qty]
+
+indent_qty.send_keys(text_11)
+
 time.sleep(1)
 next_next = driver.find_element(By.XPATH,'/html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[3]/div/div/button[3]')
 next_next.click()
 time.sleep(2)
 submit = driver.find_element(By.XPATH,'/html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[3]/div/div/button[3]')
 submit.click()
-
-
-
-
-                  
-
-
-
-
-
-
 
 time.sleep(500)
