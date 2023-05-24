@@ -6,20 +6,12 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 import pyautogui
 import time
-from gtts import gTTS
 import os
-from playsound import playsound
 from keyboard import press, release
 r = sr.Recognizer()
 from vosk import Model, KaldiRecognizer
 import pyaudio
 import json
-
-#text_2 = "FCWI1153"
-#text_3 = "FCWI1153"
-#text_4 = "1562"
-#text_5 = "general"
-#spot="fcw"
 
 
 model = Model('C:\\Users\\20325730\\Desktop\\speech_rec\\vosk-model-en-in-0.5')
@@ -55,9 +47,7 @@ word_replacements = {
     "seventy": "7",
     "eighty": "8",
     "ninety": "9",
-    #"hundred": "100",
     "eye" : " i"
-    # Add more word replacements as needed
 }
 
 def perform_speech_recognition():
@@ -131,15 +121,12 @@ def convert_special_char(text):
 
 
 
-
-# predefined URL
 url = "https://eip4bfix.lntecc.com/EIPSCMUI/SOPUI/indent-request/indentReq"
 chrome_driver_path = "C:\\Users\\20325730\\Desktop\\ZZZ\\chromedriver_win32\\chromedriver.exe"
 service = Service(chrome_driver_path)
 driver = webdriver.Chrome(service=service)
 driver.get(url)
 driver.maximize_window()
-#time.sleep(1000)
 
 other_user = driver.find_element(By.XPATH,'/html/body/app-root/div/div[2]/app-login/div/form/div/div/div[1]/div/div[2]/div[1]/div/div[1]/ul/li[2]/a')
 other_user.click()
@@ -161,9 +148,7 @@ time.sleep(2)
 job = driver.find_element(By.XPATH, '/html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[2]/div/div/mat-horizontal-stepper/div[2]/div[1]/app-indent-create-header/div/mat-accordion/mat-expansion-panel[1]/div/div/div/div[1]/div/eipautocomplete/mat-form-field/div/div[1]/div/input')
 job.click()
 
-#text_2 = perform_speech_recognition()
-#job.send_keys(text_2)
-# Sample dictionary of valid inputs
+
 my_dict_1 = {
     "1153": '/html/body/div[2]/div[3]/div/div/mat-option/span/span',
     
@@ -174,11 +159,8 @@ while True:
         text_2 = perform_speech_recognition()
         
         if text_2 in my_dict_1:
-            # Process the recognized input if it is present in the dictionary
-            # Perform the desired actions for the valid input
             job.send_keys(text_2)
-            #print("Corresponding value:", my_dict_1[text_2])
-            break  # Break the loop if a valid input is found
+            break  
             
         else:
             print("Invalid input detected:", text_2)
@@ -216,11 +198,8 @@ while True:
         text_4 = perform_speech_recognition()
         
         if text_4 in my_dict_2:
-            # Process the recognized input if it is present in the dictionary
-            # Perform the desired actions for the valid input
             warehouse.send_keys(text_4)
-            #print("Corresponding value:", my_dict_1[text_2])
-            break  # Break the loop if a valid input is found
+            break 
             
         else:
             print("Invalid input detected:", text_4)
@@ -245,8 +224,6 @@ stock_job.click()
 pyautogui.press('backspace')
 pyautogui.press('backspace')
 
-#time.sleep(1)
-
 my_dict_3 = {
     "1153": '/html/body/div[2]/div[3]/div/div/mat-option/span/span',
     "000011": '/html/body/div[2]/div[3]/div/div/mat-option[2]/span/span'
@@ -257,11 +234,8 @@ while True:
         text_3 = perform_speech_recognition()
         
         if text_3 in my_dict_3:
-            # Process the recognized input if it is present in the dictionary
-            # Perform the desired actions for the valid input
             stock_job.send_keys(text_3)
-            #print("Corresponding value:", my_dict_1[text_2])
-            break  # Break the loop if a valid input is found
+            break 
             
         else:
             print("Invalid input detected:", text_3)
@@ -299,11 +273,8 @@ while True:
         text_5 = perform_speech_recognition()
         
         if text_5 in my_dict_4:
-            # Process the recognized input if it is present in the dictionary
-            # Perform the desired actions for the valid input
             indent_type.send_keys(text_5)
-            #print("Corresponding value:", my_dict_1[text_2])
-            break  # Break the loop if a valid input is found
+            break  
             
         else:
             print("Invalid input detected:", text_5)
@@ -326,7 +297,7 @@ indent_type_option.click()
 
 issue_type = driver.find_element(By.XPATH, '/html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[2]/div/div/mat-horizontal-stepper/div[2]/div[1]/app-indent-create-header/div/mat-accordion/mat-expansion-panel[2]/div/div/div/div[2]/eipautocomplete/mat-form-field/div/div[1]/div/input')
 issue_type.click()
-#time.sleep(500)
+
 my_dict_5 = {
 
 "31" : '/html/body/div[2]/div[3]/div/div/mat-option[1]/span/span',
@@ -343,11 +314,8 @@ while True:
         text_6 = perform_speech_recognition()
         
         if text_6 in my_dict_5:
-            # Process the recognized input if it is present in the dictionary
-            # Perform the desired actions for the valid input
             issue_type.send_keys(text_6)
-            #print("Corresponding value:", my_dict_1[text_2])
-            break  # Break the loop if a valid input is found
+            break  
             
         else:
             print("Invalid input detected:", text_6)
@@ -396,11 +364,8 @@ while True:
         text_7 = perform_speech_recognition()
         
         if text_7 in my_dict_6:
-            # Process the recognized input if it is present in the dictionary
-            # Perform the desired actions for the valid input
             material_group.send_keys(text_7)
-            #print("Corresponding value:", my_dict_1[text_2])
-            break  # Break the loop if a valid input is found
+            break  
             
         else:
             print("Invalid input detected:", text_7)
@@ -415,7 +380,6 @@ if text_7 in my_dict_6:
 else:
     print("Key not found in the dictionary.")
 
-#material_group.send_keys("rope")
 material_group_option = driver.find_element(By.XPATH,  value_6)
 material_group_option.click()
 time.sleep(1)
@@ -440,11 +404,8 @@ while True:
         text_8 = perform_speech_recognition()
         
         if text_8 in my_dict_7:
-            # Process the recognized input if it is present in the dictionary
-            # Perform the desired actions for the valid input
             HSN.send_keys(text_8)
-            #print("Corresponding value:", my_dict_1[text_2])
-            break  # Break the loop if a valid input is found
+            break  
             
         else:
             print("Invalid input detected:", text_8)
@@ -481,11 +442,8 @@ while True:
         text_9 = perform_speech_recognition()
         
         if text_9 in my_dict_8:
-            # Process the recognized input if it is present in the dictionary
-            # Perform the desired actions for the valid input
             tax_type.send_keys(text_9)
-            #print("Corresponding value:", my_dict_1[text_2])
-            break  # Break the loop if a valid input is found
+            break 
             
         else:
             print("Invalid input detected:", text_9)
@@ -519,11 +477,8 @@ while True:
         text_10 = perform_speech_recognition()
         
         if text_10 in my_dict_9:
-            # Process the recognized input if it is present in the dictionary
-            # Perform the desired actions for the valid input
             cost_package.send_keys(text_10)
-            #print("Corresponding value:", my_dict_1[text_2])
-            break  # Break the loop if a valid input is found
+            break  
             
         else:
             print("Invalid input detected:", text_10)
@@ -537,10 +492,6 @@ while True:
 
 time.sleep(2)
 press('enter')
-
-#time.sleep(3)
-#cost_package_option = driver.find_element(By.XPATH,value_10)
-#cost_package_option.click()
 
 time.sleep(1)
 indent_qty = driver.find_element(By.XPATH,'/html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[2]/div/div/mat-horizontal-stepper/div[2]/div[2]/div/kendo-grid/div/kendo-grid-list/div/div[1]/table/tbody/tr[2]/td[2]/div/kendo-grid/div/kendo-grid-list/div/div[1]/table/tbody/tr/td[4]/mat-form-field/div/div[1]/div/input')
