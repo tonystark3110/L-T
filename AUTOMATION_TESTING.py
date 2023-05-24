@@ -134,7 +134,9 @@ def convert_special_char(text):
 
 # predefined URL
 url = "https://eip4bfix.lntecc.com/EIPSCMUI/SOPUI/indent-request/indentReq"
-driver = webdriver.Chrome(executable_path="C:\\Users\\20325730\\Desktop\\ZZZ\\chromedriver_win32\\chromedriver.exe")
+chrome_driver_path = "C:\\Users\\20325730\\Desktop\\ZZZ\\chromedriver_win32\\chromedriver.exe"
+service = Service(chrome_driver_path)
+driver = webdriver.Chrome(service=service)
 driver.get(url)
 driver.maximize_window()
 #time.sleep(1000)
@@ -543,9 +545,15 @@ press('enter')
 time.sleep(1)
 indent_qty = driver.find_element(By.XPATH,'/html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[2]/div/div/mat-horizontal-stepper/div[2]/div[2]/div/kendo-grid/div/kendo-grid-list/div/div[1]/table/tbody/tr[2]/td[2]/div/kendo-grid/div/kendo-grid-list/div/div[1]/table/tbody/tr/td[4]/mat-form-field/div/div[1]/div/input')
 indent_qty.click()
-qty = perform_speech_recognition()
+while True:
+    try:
+        qty = perform_speech_recognition()
+        indent_qty.send_keys(qty)
+        break  
+    except Exception as e:
+        print("An error occurred:", str(e))
+        print("Retrying...")
 
-indent_qty.send_keys(qty)
 
 time.sleep(1)
 next_next = driver.find_element(By.XPATH,'/html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[3]/div/div/button[3]')
