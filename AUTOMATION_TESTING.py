@@ -1,9 +1,15 @@
 import speech_recognition as sr
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.keys import Keys
 import pyautogui
 import time
 import os
@@ -47,14 +53,15 @@ word_replacements = {
     "seventy": "7",
     "eighty": "8",
     "ninety": "9",
-    "eye" : " i"
+    "eye" : " i",
+    "tree" : "3"
 }
 
 def perform_speech_recognition():
 
 
     cap = pyaudio.PyAudio()
-    stream = cap.open(format=pyaudio.paInt16, channels=1, rate=16000, input=True, frames_per_buffer=16384)
+    stream = cap.open(format=pyaudio.paInt16, channels=1, rate=16000, input=True, frames_per_buffer=8192)
     stream.start_stream()
 
     
@@ -83,9 +90,9 @@ def perform_speech_recognition():
             recognized_text = " ".join(recognized_numbers)
             break
 
-    text_2 = recognized_text.replace(" ", "")
-    print(text_2)
-    return text_2
+    text_1 = recognized_text.replace(" ", "")
+    print(text_1)
+    return text_1
 
 
    
@@ -127,6 +134,9 @@ service = Service(chrome_driver_path)
 driver = webdriver.Chrome(service=service)
 driver.get(url)
 driver.maximize_window()
+chrome_options = Options()
+#chrome_options.add_argument("--headless")  # Optional: Run the browser in headless mode
+
 
 other_user = driver.find_element(By.XPATH,'/html/body/app-root/div/div[2]/app-login/div/form/div/div/div[1]/div/div[2]/div[1]/div/div[1]/ul/li[2]/a')
 other_user.click()
@@ -149,193 +159,161 @@ job = driver.find_element(By.XPATH, '/html/body/div[2]/div[2]/div/mat-dialog-con
 job.click()
 
 
-my_dict_1 = {
-    "1153": '/html/body/div[2]/div[3]/div/div/mat-option/span/span',
-    
-}
 
 while True:
     try:
         text_2 = perform_speech_recognition()
-        
-        if text_2 in my_dict_1:
-            job.send_keys(text_2)
-            break  
-            
+        Jobcode = driver.find_element(By.XPATH, '//*[@id="ActxtboxINDCJob"]')  
+        Jobcode.clear()
+        Jobcode.send_keys(text_2)
+        elements = driver.find_elements(By.XPATH, '(//span[@class="mat-option-text"]//span)')
+
+        for element in elements:
+            if text_2 in element.text:
+                element.click()
+                break
         else:
             print("Invalid input detected:", text_2)
+            Jobcode = driver.find_element(By.XPATH, '//*[@id="ActxtboxINDCJob"]')
+            Jobcode.clear()
             print("Retrying...")
-            
+            continue
+
+        # If the loop reaches here, the input was found successfully
+        break
+
     except Exception as e:
         print("An error occurred:", str(e))
         print("Retrying...")
+        continue
 
 
-if text_2 in my_dict_1:
-    value_1 = my_dict_1[text_2]
-    print("Value:", value_1)
-else:
-    print("Key not found in the dictionary.")
-    
 
+time.sleep(1)
 
-job_option = driver.find_element(By.XPATH, value_1)
-time.sleep(2)
-job_option.click()
 warehouse = driver.find_element(By.XPATH, '//*[@id="ActxtboxINDCWarehouse"]')
 warehouse.click()
 time.sleep(1)
-my_dict_2 = {
-
- "1562" : '/html/body/div[2]/div[3]/div/div/mat-option/span/span' ,        
- "1563" : '/html/body/div[2]/div[3]/div/div/mat-option[2]/span',
- "1565" : '/html/body/div[2]/div[3]/div/div/mat-option[3]/span/span',
- "1567" : '/html/body/div[2]/div[3]/div/div/mat-option[4]/span/span',
- "3116" : '/html/body/div[2]/div[3]/div/div/mat-option[5]/span/span',
-}
 while True:
     try:
-        text_4 = perform_speech_recognition()
-        
-        if text_4 in my_dict_2:
-            warehouse.send_keys(text_4)
-            break 
-            
+        text_3 = perform_speech_recognition()
+        Jobcode = driver.find_element(By.XPATH, '/html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[2]/div/div/mat-horizontal-stepper/div[2]/div[1]/app-indent-create-header/div/mat-accordion/mat-expansion-panel[1]/div/div/div/div[2]/div/eipautocomplete/mat-form-field/div/div[1]/div/input')
+        Jobcode.clear()
+        Jobcode.send_keys(text_3)
+        elements = driver.find_elements(By.XPATH, '(//span[@class="mat-option-text"]//span)')
+
+        for element in elements:
+            if text_3 in element.text:
+                element.click()
+                break
         else:
-            print("Invalid input detected:", text_4)
+            print("Invalid input detected:", text_3)
+            Jobcode = driver.find_element(By.XPATH, '/html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[2]/div/div/mat-horizontal-stepper/div[2]/div[1]/app-indent-create-header/div/mat-accordion/mat-expansion-panel[1]/div/div/div/div[2]/div/eipautocomplete/mat-form-field/div/div[1]/div/input')
+            Jobcode.clear()
             print("Retrying...")
-            
+            continue
+
+        # If the loop reaches here, the input was found successfully
+        break
+
     except Exception as e:
         print("An error occurred:", str(e))
         print("Retrying...")
+        continue
 
-if text_4 in my_dict_2:
-    value_2 = my_dict_2[text_4]
-    print("Value:", value_2)
-else:
-    print("Key not found in the dictionary.")
-
-
-warehouse_option = driver.find_element(By.XPATH, value_2)
-warehouse_option.click()
 time.sleep(2)  
 stock_job = driver.find_element(By.XPATH, '//*[@id="ActxtboxINDCAccountingCentre"]')
 stock_job.click()
 pyautogui.press('backspace')
 pyautogui.press('backspace')
 
-my_dict_3 = {
-    "1153": '/html/body/div[2]/div[3]/div/div/mat-option/span/span',
-    "000011": '/html/body/div[2]/div[3]/div/div/mat-option[2]/span/span'
-    
-}
 while True:
     try:
-        text_3 = perform_speech_recognition()
-        
-        if text_3 in my_dict_3:
-            stock_job.send_keys(text_3)
-            break 
-            
+        text_4 = perform_speech_recognition()
+        Jobcode = driver.find_element(By.XPATH, '/html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[2]/div/div/mat-horizontal-stepper/div[2]/div[1]/app-indent-create-header/div/mat-accordion/mat-expansion-panel[1]/div/div/div/div[3]/div/eipautocomplete/mat-form-field/div/div[1]/div/input')
+        Jobcode.clear()
+        Jobcode.send_keys(text_4)
+        elements = driver.find_elements(By.XPATH, '(//span[@class="mat-option-text"]//span)')
+
+        for element in elements:
+            if text_4 in element.text:
+                element.click()
+                break
         else:
-            print("Invalid input detected:", text_3)
+            print("Invalid input detected:", text_4)
+            Jobcode = driver.find_element(By.XPATH, '/html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[2]/div/div/mat-horizontal-stepper/div[2]/div[1]/app-indent-create-header/div/mat-accordion/mat-expansion-panel[1]/div/div/div/div[3]/div/eipautocomplete/mat-form-field/div/div[1]/div/input')
+            Jobcode.clear()
             print("Retrying...")
-            
+            continue
+
+        # If the loop reaches here, the input was found successfully
+        break
+
     except Exception as e:
         print("An error occurred:", str(e))
         print("Retrying...")
-
-
-
-if text_3 in my_dict_3:
-    value_3 = my_dict_3[text_3]
-    print("Value:", value_3)
-else:
-    print("Key not found in the dictionary.")
-
-
-stock_job_option = driver.find_element(By.XPATH, value_3)
-stock_job_option.click()
+        continue
 time.sleep(3)  
 indent_type = driver.find_element(By.XPATH, '/html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[2]/div/div/mat-horizontal-stepper/div[2]/div[1]/app-indent-create-header/div/mat-accordion/mat-expansion-panel[2]/div/div/div/div[1]/eipautocomplete/mat-form-field/div/div[1]/div/input')
 indent_type.click()
-my_dict_4 = {
 
-   "general" : '/html/body/div[2]/div[3]/div/div/mat-option[1]/span',
-    "plant and machinery" : '/html/body/div[2]/div[3]/div/div/mat-option[2]/span/span',
-    "Linear Indent" : '/html/body/div[2]/div[3]/div/div/mat-option[3]/span/span',
-    "Non Linear" :    '/html/body/div[2]/div[3]/div/div/mat-option[4]/span/span',
-    "Maintenance Linear" : '/html/body/div[2]/div[3]/div/div/mat-option[5]/span/span',
-    "Maintenance Non Linear" : '/html/body/div[2]/div[3]/div/div/mat-option[6]/span/span'
-}
 while True:
     try:
         text_5 = perform_speech_recognition()
-        
-        if text_5 in my_dict_4:
-            indent_type.send_keys(text_5)
-            break  
-            
+        Jobcode = driver.find_element(By.XPATH, '/html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[2]/div/div/mat-horizontal-stepper/div[2]/div[1]/app-indent-create-header/div/mat-accordion/mat-expansion-panel[2]/div/div/div/div[1]/eipautocomplete/mat-form-field/div/div[1]/div/input')
+        Jobcode.clear()
+        Jobcode.send_keys(text_5)
+        elements = driver.find_elements(By.XPATH, '(//span[@class="mat-option-text"]//span)')
+
+        for element in elements:
+            if text_5 in element.text:
+                element.click()
+                break
         else:
             print("Invalid input detected:", text_5)
+            Jobcode = driver.find_element(By.XPATH, '/html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[2]/div/div/mat-horizontal-stepper/div[2]/div[1]/app-indent-create-header/div/mat-accordion/mat-expansion-panel[2]/div/div/div/div[1]/eipautocomplete/mat-form-field/div/div[1]/div/input')
+            Jobcode.clear()
             print("Retrying...")
-            
+            continue
+
+        # If the loop reaches here, the input was found successfully
+        break
+
     except Exception as e:
         print("An error occurred:", str(e))
         print("Retrying...")
-
-if text_5 in my_dict_4:
-    value_4 = my_dict_4[text_5]
-    print("Value:", value_4)
-else:
-    print("Key not found in the dictionary.")
-
-time.sleep(2)
-
-indent_type_option = driver.find_element(By.XPATH, value_4)
-indent_type_option.click()
+        continue
 
 issue_type = driver.find_element(By.XPATH, '/html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[2]/div/div/mat-horizontal-stepper/div[2]/div[1]/app-indent-create-header/div/mat-accordion/mat-expansion-panel[2]/div/div/div/div[2]/eipautocomplete/mat-form-field/div/div[1]/div/input')
 issue_type.click()
 
-my_dict_5 = {
-
-"31" : '/html/body/div[2]/div[3]/div/div/mat-option[1]/span/span',
-"33" : '/html/body/div[2]/div[3]/div/div/mat-option[2]/span/span',
-"61" : '/html/body/div[2]/div[3]/div/div/mat-option[3]/span/span',
-"63" : '/html/body/div[2]/div[3]/div/div/mat-option[4]/span/span',
-"70" : '/html/body/div[2]/div[3]/div/div/mat-option[5]/span',
-"101" : '/html/body/div[2]/div[3]/div/div/mat-option/span/span',
-"102" : '/html/body/div[2]/div[3]/div/div/mat-option[7]/span/span'
-}
-
 while True:
     try:
         text_6 = perform_speech_recognition()
-        
-        if text_6 in my_dict_5:
-            issue_type.send_keys(text_6)
-            break  
-            
+        Jobcode = driver.find_element(By.XPATH, '/html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[2]/div/div/mat-horizontal-stepper/div[2]/div[1]/app-indent-create-header/div/mat-accordion/mat-expansion-panel[2]/div/div/div/div[2]/eipautocomplete/mat-form-field/div/div[1]/div/input')
+        Jobcode.clear()
+        Jobcode.send_keys(text_6)
+        elements = driver.find_elements(By.XPATH, '(//span[@class="mat-option-text"]//span)')
+
+        for element in elements:
+            if text_6 in element.text:
+                element.click()
+                break
         else:
             print("Invalid input detected:", text_6)
+            Jobcode = driver.find_element(By.XPATH, '/html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[2]/div/div/mat-horizontal-stepper/div[2]/div[1]/app-indent-create-header/div/mat-accordion/mat-expansion-panel[2]/div/div/div/div[2]/eipautocomplete/mat-form-field/div/div[1]/div/input')
+            Jobcode.clear()
             print("Retrying...")
-            
+            continue
+
+        # If the loop reaches here, the input was found successfully
+        break
+
     except Exception as e:
         print("An error occurred:", str(e))
         print("Retrying...")
+        continue
 
-
-
-if text_6 in my_dict_5:
-    value_5 = my_dict_5[text_6]
-    print("Value:", value_5)
-else:
-    print("Key not found in the dictionary.")
-
-time.sleep(2) 
-issue_type_option = driver.find_element(By.XPATH, value_5)
-issue_type_option.click()
 time.sleep(2) 
 
 #priority = driver.find_element(By.XPATH, '/html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[2]/div/div/mat-horizontal-stepper/div[2]/div[1]/app-indent-create-header/div/mat-accordion/mat-expansion-panel[2]/div/div/div/div[3]/eipautocomplete/mat-form-field/div/div[1]/div/input')
@@ -353,35 +331,33 @@ time.sleep(1)
 material_group = driver.find_element(By.XPATH, '/html/body/div[2]/div[4]/div/mat-dialog-container/app-general-cart-popup/div[2]/div[1]/eipautocomplete/mat-form-field/div/div[1]/div/input')
 time.sleep(1)
 material_group.click()
-my_dict_6 = {
-
-   "3806" : '/html/body/div[2]/div[5]/div/div/mat-option/span/span'
-
-}
-
 while True:
     try:
         text_7 = perform_speech_recognition()
-        
-        if text_7 in my_dict_6:
-            material_group.send_keys(text_7)
-            break  
-            
+        Jobcode = driver.find_element(By.XPATH, '/html/body/div[2]/div[4]/div/mat-dialog-container/app-general-cart-popup/div[2]/div[1]/eipautocomplete/mat-form-field/div/div[1]/div/input')
+        Jobcode.clear()
+        Jobcode.send_keys(text_7)
+        elements = driver.find_elements(By.XPATH, '(//span[@class="mat-option-text"]//span)')
+
+        for element in elements:
+            if text_7 in element.text:
+                element.click()
+                break
         else:
             print("Invalid input detected:", text_7)
+            Jobcode = driver.find_element(By.XPATH, '/html/body/div[2]/div[4]/div/mat-dialog-container/app-general-cart-popup/div[2]/div[1]/eipautocomplete/mat-form-field/div/div[1]/div/input')
+            Jobcode.clear()
             print("Retrying...")
-            
+            continue
+
+        # If the loop reaches here, the input was found successfully
+        break
+
     except Exception as e:
         print("An error occurred:", str(e))
         print("Retrying...")
-if text_7 in my_dict_6:
-    value_6 = my_dict_6[text_7]
-    print("Value:", value_6)
-else:
-    print("Key not found in the dictionary.")
+        continue
 
-material_group_option = driver.find_element(By.XPATH,  value_6)
-material_group_option.click()
 time.sleep(1)
 select  = driver.find_element(By.XPATH, '/html/body/div[2]/div[4]/div/mat-dialog-container/app-general-cart-popup/div[2]/div[2]/eipgeneralcart/div/div/div[1]/div/div[2]/mat-selection-list/mat-list-option/div/div[2]')
 select.click()
@@ -394,102 +370,94 @@ post.click()
 time.sleep(2)                     
 HSN = driver.find_element(By.XPATH, ' /html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[2]/div/div/mat-horizontal-stepper/div[2]/div[2]/div/kendo-grid/div/kendo-grid-list/div/div[1]/table/tbody/tr/td[3]/eipautocomplete/mat-form-field/div/div[1]/div/input')
 HSN.click()
-my_dict_7 = {
-    "diodes": '/html/body/div[2]/div[3]/div/div/mat-option[1]',
-    "spark" : '/html/body/div[2]/div[3]/div/div/mat-option[1]/span/span'
-    
-}
 while True:
     try:
         text_8 = perform_speech_recognition()
-        
-        if text_8 in my_dict_7:
-            HSN.send_keys(text_8)
-            break  
-            
+        Jobcode = driver.find_element(By.XPATH, '/html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[2]/div/div/mat-horizontal-stepper/div[2]/div[2]/div/kendo-grid/div/kendo-grid-list/div/div[1]/table/tbody/tr/td[3]/eipautocomplete/mat-form-field/div/div[1]/div/input')
+        Jobcode.clear()
+        Jobcode.send_keys(text_8)
+        elements = driver.find_elements(By.XPATH, '(//span[@class="mat-option-text"]//span)')
+
+        for element in elements:
+            if text_8 in element.text:
+                element.click()
+                break
         else:
             print("Invalid input detected:", text_8)
+            Jobcode = driver.find_element(By.XPATH, '/html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[2]/div/div/mat-horizontal-stepper/div[2]/div[2]/div/kendo-grid/div/kendo-grid-list/div/div[1]/table/tbody/tr/td[3]/eipautocomplete/mat-form-field/div/div[1]/div/input')
+            Jobcode.clear()
             print("Retrying...")
-            
+            continue
+
+        # If the loop reaches here, the input was found successfully
+        break
+
     except Exception as e:
         print("An error occurred:", str(e))
         print("Retrying...")
+        continue
 
-
-
-if text_8 in my_dict_7:
-    value_7 = my_dict_7[text_8]
-    print("Value:", value_7)
-else:
-    print("Key not found in the dictionary.")
-
-HSN_options = driver.find_element(By.XPATH, value_7)
-HSN_options.click()
 time.sleep(2)
 tax_type = driver.find_element(By.XPATH,'/html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[2]/div/div/mat-horizontal-stepper/div[2]/div[2]/div/kendo-grid/div/kendo-grid-list/div/div[1]/table/tbody/tr[1]/td[4]/div/eipautocomplete/mat-form-field/div/div[1]/div/input')
 tax_type.click()
-my_dict_8 = {
-
-   "18" : '/html/body/div[2]/div[3]/div/div/mat-option[1]/span/span',
-    "12" : '/html/body/div[2]/div[3]/div/div/mat-option/span/span',
-    "5" : '/html/body/div[2]/div[3]/div/div/mat-option/span',
-    "0" :    '/html/body/div[2]/div[3]/div/div/mat-option[1]/span/span',
-    "28" : '/html/body/div[2]/div[3]/div/div/mat-option[1]/span/span',
-    "6" : '/html/body/div[2]/div[3]/div/div/mat-option/span/span/span'
-}
 while True:
     try:
         text_9 = perform_speech_recognition()
-        
-        if text_9 in my_dict_8:
-            tax_type.send_keys(text_9)
-            break 
-            
+        Jobcode = driver.find_element(By.XPATH, '/html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[2]/div/div/mat-horizontal-stepper/div[2]/div[2]/div/kendo-grid/div/kendo-grid-list/div/div[1]/table/tbody/tr/td[4]/div/eipautocomplete/mat-form-field/div/div[1]/div/input')
+        Jobcode.clear()
+        Jobcode.send_keys(text_9)
+        elements = driver.find_elements(By.XPATH, '(//span[@class="mat-option-text"]//span)')
+
+        for element in elements:
+            if text_9 in element.text:
+                element.click()
+                break
         else:
             print("Invalid input detected:", text_9)
+            Jobcode = driver.find_element(By.XPATH, '/html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[2]/div/div/mat-horizontal-stepper/div[2]/div[2]/div/kendo-grid/div/kendo-grid-list/div/div[1]/table/tbody/tr/td[4]/div/eipautocomplete/mat-form-field/div/div[1]/div/input')
+            Jobcode.clear()
             print("Retrying...")
-            
+            continue
+
+        # If the loop reaches here, the input was found successfully
+        break
+
     except Exception as e:
         print("An error occurred:", str(e))
         print("Retrying...")
+        continue
 
-if text_9 in my_dict_8:
-    value_8 = my_dict_8[text_9]
-    print("Value:", value_8)
-else:
-    print("Key not found in the dictionary.")
-
-time.sleep(1)
-tax_type_options = driver.find_element(By.XPATH,value_8)
-tax_type_options.click()
 expand_list = driver.find_element(By.XPATH,'/html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[2]/div/div/mat-horizontal-stepper/div[2]/div[2]/div/kendo-grid/div/kendo-grid-list/div/div[1]/table/tbody/tr/td[10]/div/i')
 expand_list.click()
 cost_package = driver.find_element(By.XPATH,'/html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[2]/div/div/mat-horizontal-stepper/div[2]/div[2]/div/kendo-grid/div/kendo-grid-list/div/div[1]/table/tbody/tr[2]/td[2]/div/kendo-grid/div/kendo-grid-list/div/div[1]/table/tbody/tr/td[1]/kendo-combobox/span/kendo-searchbar/input')
 cost_package.click()
 time.sleep(1)
-my_dict_9 = {
-
-   "acss" : '/html/body/div[2]/div[3]/div/div/mat-option[1]/span'
-    
-}
 while True:
     try:
         text_10 = perform_speech_recognition()
-        
-        if text_10 in my_dict_9:
-            cost_package.send_keys(text_10)
-            break  
-            
+        Jobcode = driver.find_element(By.XPATH, '/html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[2]/div/div/mat-horizontal-stepper/div[2]/div[2]/div/kendo-grid/div/kendo-grid-list/div/div[1]/table/tbody/tr[2]/td[2]/div/kendo-grid/div/kendo-grid-list/div/div[1]/table/tbody/tr/td[1]/kendo-combobox/span/kendo-searchbar/input')
+        Jobcode.clear()
+        Jobcode.send_keys(text_10)
+        elements = driver.find_elements(By.XPATH, '(//span[@class="mat-option-text"]//span)')
+
+        for element in elements:
+            if text_10 in element.text:
+                element.click()
+                break
         else:
             print("Invalid input detected:", text_10)
+            Jobcode = driver.find_element(By.XPATH, '/html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[2]/div/div/mat-horizontal-stepper/div[2]/div[2]/div/kendo-grid/div/kendo-grid-list/div/div[1]/table/tbody/tr[2]/td[2]/div/kendo-grid/div/kendo-grid-list/div/div[1]/table/tbody/tr/td[1]/kendo-combobox/span/kendo-searchbar/input')
+            Jobcode.clear()
             print("Retrying...")
-            
+            continue
+
+        # If the loop reaches here, the input was found successfully
+        break
+
     except Exception as e:
         print("An error occurred:", str(e))
         print("Retrying...")
-
-
-
+        continue
 time.sleep(2)
 press('enter')
 
