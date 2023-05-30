@@ -98,34 +98,22 @@ def perform_speech_recognition():
    
 
 def convert_special_char(text):
-    temp=text
-    special_chars = ['dot','underscore','dollar','hash','star','plus','minus','space','dash']
-    for character in special_chars:
-        while(True):
-            pos=temp.find(character)
-            if pos == -1:
-                break
-            else :
-                if character == 'dot':
-                    temp=temp.replace('dot','.')
-                elif character == 'underscore':
-                    temp=temp.replace('underscore','_')
-                elif character == 'dollar':
-                    temp=temp.replace('dollar','$')
-                elif character == 'hash':
-                    temp=temp.replace('hash','#')
-                elif character == 'star':
-                    temp=temp.replace('star','*')
-                elif character == 'plus':
-                    temp=temp.replace('plus','+')
-                elif character == 'minus':
-                    temp=temp.replace('minus','-')
-                elif character == 'space':
-                    temp = temp.replace('space', '')
-                elif character == 'dash':
-                    temp=temp.replace('dash','-')
-    return temp
+    special_char_map = {
+        'dot': '.',
+        'underscore': '_',
+        'dollar': '$',
+        'hash': '#',
+        'star': '*',
+        'plus': '+',
+        'minus': '-',
+        'space': '',
+        'dash': '-'
+    }
 
+    for character, replacement in special_char_map.items():
+        text = text.replace(character, replacement)
+
+    return text
 
 
 url = "https://eip4bfix.lntecc.com/EIPSCMUI/SOPUI/indent-request/indentReq"
