@@ -1532,3 +1532,35 @@ for web_element in element:
             else:
                 print("Invalid input detected:", "FWWET016")
                 print("Retrying...")
+
+
+
+#****************************************************************************************************************************************************
+
+
+while True:
+    try:
+        text_2 = perform_speech_recognition()
+        Jobcode = driver.find_element(By.XPATH, '//*[@id="ActxtboxINDCJob"]')
+        Jobcode.clear()
+        Jobcode.send_keys(text_2)
+        elements = driver.find_elements(By.XPATH, '(//span[@class="mat-option-text"]//span)')
+
+        for element in elements:
+            if text_2 in element.text:
+                element.click()
+                break
+        else:
+            print("Invalid input detected:", text_2)
+            Jobcode = driver.find_element(By.XPATH, '//*[@id="ActxtboxINDCJob"]')
+            Jobcode.clear()
+            print("Retrying...")
+            continue
+
+        # If the loop reaches here, the input was found successfully
+        break
+
+    except Exception as e:
+        print("An error occurred:", str(e))
+        print("Retrying...")
+        continue
