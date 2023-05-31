@@ -58,8 +58,11 @@ word_replacements = {
     "plus": "+",
     "minus": "-",
     "space": "",
-    "dash": "-"
+    "dash": "-",
+    "comma": ","
 }
+
+
 
 # Returning the value of input
 def perform_speech_recognition():
@@ -74,6 +77,8 @@ def perform_speech_recognition():
     print("Listening...")
 
     while True:
+        
+
         data = stream.read(4096)
         if len(data) == 0:
             break
@@ -106,9 +111,9 @@ def input_entry(driver, xpath):
     while True:
         try:
             text_2 = perform_speech_recognition()
-            Jobcode = driver.find_element(By.XPATH, xpath)
-            Jobcode.clear()
-            Jobcode.send_keys(text_2)
+            text_bar = driver.find_element(By.XPATH, xpath)
+            text_bar.clear()
+            text_bar.send_keys(text_2)
             elements = driver.find_elements(By.XPATH, '(//span[@class="mat-option-text"]//span)')
 
             for element in elements:
@@ -117,7 +122,7 @@ def input_entry(driver, xpath):
                     break
             else:
                 print("Invalid input detected:", text_2)
-                Jobcode.clear()
+                text_bar.clear()
                 print("Retrying...")
                 continue
 
