@@ -18,7 +18,9 @@ from pydub.playback import play
 r = sr.Recognizer()
 
 
-audio_file = r'C:\\Users\\20325730\\Desktop\\PROJECT\\yes_no.mp3'
+
+audio_file = 'C:\\Users\\20325730\\Desktop\\PROJECT\\yes_no.mp3'
+
 #model = Model('C:\\Users\\20325730\\Desktop\\PROJECT\\vosk-model-en-us-0.42-gigaspeech')
 model = Model('C:\\Users\\20325730\\Desktop\\PROJECT\\vosk-model-en-in-0.5')
 recognizer = KaldiRecognizer(model, 16000)
@@ -144,6 +146,7 @@ def input_entry(driver, xpath):
 
             while True:
                 # Prompt the user to confirm the selected option
+                playsound(audio_file)
                 print("Is the selected option correct? yes or no")
                 user_input = perform_speech_recognition().lower()
 
@@ -157,6 +160,7 @@ def input_entry(driver, xpath):
                     return
 
                 print("Invalid input. Please enter 'yes' or 'no'.")
+                playsound(audio_file)
 
         except Exception as e:
             print("An error occurred:", str(e))
