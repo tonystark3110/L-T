@@ -3,6 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
+from selenium.common.exceptions import StaleElementReferenceException
 from webdriver_manager.chrome import ChromeDriverManager
 import pyautogui
 import time
@@ -11,10 +12,13 @@ from keyboard import press
 import pyaudio
 import json
 from vosk import Model, KaldiRecognizer
+from playsound import playsound
+from pydub import AudioSegment
+from pydub.playback import play
 r = sr.Recognizer()
 
 
-
+audio_file = r'C:\\Users\\20325730\\Desktop\\PROJECT\\yes_no.mp3'
 #model = Model('C:\\Users\\20325730\\Desktop\\PROJECT\\vosk-model-en-us-0.42-gigaspeech')
 model = Model('C:\\Users\\20325730\\Desktop\\PROJECT\\vosk-model-en-in-0.5')
 recognizer = KaldiRecognizer(model, 16000)
@@ -60,7 +64,8 @@ word_replacements = {
     "minus": "-",
     #"space": "",
     "dash": "-",
-    "comma": ","
+    "comma": ",",
+    "and" : "&"
 }
 
 
@@ -114,15 +119,19 @@ def input_entry(driver, xpath):
     while True:
         try:
             text_2 = perform_speech_recognition()
+            if not text_2:
+                # No voice input detected
+                continue
+
             text_bar = driver.find_element(By.XPATH, xpath)
-            #text_bar.clear()
+            text_bar.clear()
             text_bar.send_keys(text_2)
             elements = driver.find_elements(By.XPATH, '(//span[@class="mat-option-text"]//span)')
 
             option_found = False
 
             for element in elements:
-                if text_2 in element.text:
+                if text_2.lower() in element.text.lower():
                     element.click()
                     option_found = True
                     break
@@ -133,7 +142,21 @@ def input_entry(driver, xpath):
                 print("Retrying...")
                 continue
 
-            break
+            while True:
+                # Prompt the user to confirm the selected option
+                print("Is the selected option correct? yes or no")
+                user_input = perform_speech_recognition().lower()
+
+                if user_input == "no":
+                    # Clear the text and retry input
+                    text_bar.clear()
+                    print("Retrying...")
+                    break
+                elif user_input == "yes":
+                    # Continue with the selected option
+                    return
+
+                print("Invalid input. Please enter 'yes' or 'no'.")
 
         except Exception as e:
             print("An error occurred:", str(e))
@@ -142,12 +165,13 @@ def input_entry(driver, xpath):
 
 
 
+
 url = "https://eip4dev.lntecc.com/EIPSCMUI/SOPUI/indent-request/indentReq"
 chrome_driver_path = "C:\\Users\\20325730\\Desktop\\PROJECT\\chromedriver_win32\\chromedriver.exe"
 service = Service(chrome_driver_path)
 driver = webdriver.Chrome(service=service)
 driver.get(url)
-driver.maximize_window()
+#driver.maximize_window()
 chrome_options = Options()
 #chrome_options.add_argument("--headless")  # Optional: Run the browser in headless mode
 
@@ -162,10 +186,10 @@ password.click()
 password.send_keys("Phnx@2019")
 login = driver.find_element(By.XPATH, '//*[@id="login-submit"]')
 login.click()
-time.sleep(3)
+#time.sleep(3)
 #session = driver.find_element(By.XPATH, '//*[@id="mat-dialog-0"]/eipmessagebox/div/div[3]/button')
 #session.click()
-time.sleep(8)
+time.sleep(12)
 approver = driver.find_element(By.XPATH, '/html/body/app-root/div/div[2]/app-indent-container/div/dynamic-tabs/dynamic-tab/div/app-indent-landing/div/div/div[2]/kendo-grid/kendo-grid-toolbar/div/div[3]/mat-slide-toggle/label/span[1]/span/span[1]')
 approver.click()
 time.sleep(3)
