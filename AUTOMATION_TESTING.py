@@ -15,7 +15,8 @@ r = sr.Recognizer()
 
 
 
-model = Model('C:\\Users\\20325730\\Desktop\\PROJECT\\vosk-model-en-us-0.42-gigaspeech')
+#model = Model('C:\\Users\\20325730\\Desktop\\PROJECT\\vosk-model-en-us-0.42-gigaspeech')
+model = Model('C:\\Users\\20325730\\Desktop\\PROJECT\\vosk-model-en-in-0.5')
 recognizer = KaldiRecognizer(model, 16000)
 
 
@@ -57,7 +58,7 @@ word_replacements = {
     "star": "*",
     "plus": "+",
     "minus": "-",
-    "space": "",
+    #"space": "",
     "dash": "-",
     "comma": ","
 }
@@ -66,7 +67,7 @@ word_replacements = {
 
 # Returning the value of input
 def perform_speech_recognition():
-
+ try:
 
     cap = pyaudio.PyAudio()
     stream = cap.open(format=pyaudio.paInt16, channels=1, rate=16000, input=True, frames_per_buffer=8192)
@@ -104,7 +105,9 @@ def perform_speech_recognition():
     print(text_1)
     return text_1
 
-
+ except Exception as e:
+    print("Error during speech recognition:", str(e))
+    return None
 
 
 def input_entry(driver, xpath):
@@ -112,15 +115,19 @@ def input_entry(driver, xpath):
         try:
             text_2 = perform_speech_recognition()
             text_bar = driver.find_element(By.XPATH, xpath)
-            text_bar.clear()
+            #text_bar.clear()
             text_bar.send_keys(text_2)
             elements = driver.find_elements(By.XPATH, '(//span[@class="mat-option-text"]//span)')
+
+            option_found = False
 
             for element in elements:
                 if text_2 in element.text:
                     element.click()
+                    option_found = True
                     break
-            else:
+
+            if not option_found:
                 print("Invalid input detected:", text_2)
                 text_bar.clear()
                 print("Retrying...")
@@ -134,7 +141,8 @@ def input_entry(driver, xpath):
             continue
 
 
-url = "https://eip4bfix.lntecc.com/EIPSCMUI/SOPUI/indent-request/indentReq"
+
+url = "https://eip4dev.lntecc.com/EIPSCMUI/SOPUI/indent-request/indentReq"
 chrome_driver_path = "C:\\Users\\20325730\\Desktop\\PROJECT\\chromedriver_win32\\chromedriver.exe"
 service = Service(chrome_driver_path)
 driver = webdriver.Chrome(service=service)
@@ -148,16 +156,19 @@ other_user = driver.find_element(By.XPATH,'/html/body/app-root/div/div[2]/app-lo
 other_user.click()
 username = driver.find_element(By.XPATH, '//*[@id="username"]')
 username.click()
-username.send_keys("nmanikandan")
+username.send_keys("mmurali")
 password = driver.find_element(By.XPATH, '//*[@id="password-field"]')
 password.click()
-password.send_keys("E210a#04P1e&bfix")
+password.send_keys("Phnx@2019")
 login = driver.find_element(By.XPATH, '//*[@id="login-submit"]')
 login.click()
 time.sleep(3)
-session = driver.find_element(By.XPATH, '//*[@id="mat-dialog-0"]/eipmessagebox/div/div[3]/button')
-session.click()
-time.sleep(6)
+#session = driver.find_element(By.XPATH, '//*[@id="mat-dialog-0"]/eipmessagebox/div/div[3]/button')
+#session.click()
+time.sleep(8)
+approver = driver.find_element(By.XPATH, '/html/body/app-root/div/div[2]/app-indent-container/div/dynamic-tabs/dynamic-tab/div/app-indent-landing/div/div/div[2]/kendo-grid/kendo-grid-toolbar/div/div[3]/mat-slide-toggle/label/span[1]/span/span[1]')
+approver.click()
+time.sleep(3)
 create_indent = driver.find_element(By.XPATH, '//*[@id="ibtINDADD"]')
 create_indent.click()
 time.sleep(2)
@@ -230,6 +241,7 @@ HSN.click()
 
 xpath7 = '/html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[2]/div/div/mat-horizontal-stepper/div[2]/div[2]/div/kendo-grid/div/kendo-grid-list/div/div[1]/table/tbody/tr/td[3]/eipautocomplete/mat-form-field/div/div[1]/div/input'
 input_entry(driver, xpath7)
+time.sleep(1)
 
 time.sleep(2)
 tax_type = driver.find_element(By.XPATH,'/html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[2]/div/div/mat-horizontal-stepper/div[2]/div[2]/div/kendo-grid/div/kendo-grid-list/div/div[1]/table/tbody/tr[1]/td[4]/div/eipautocomplete/mat-form-field/div/div[1]/div/input')
