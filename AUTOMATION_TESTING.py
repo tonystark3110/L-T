@@ -13,8 +13,6 @@ import pyaudio
 import json
 from vosk import Model, KaldiRecognizer
 from playsound import playsound
-from pydub import AudioSegment
-from pydub.playback import play
 r = sr.Recognizer()
 
 
