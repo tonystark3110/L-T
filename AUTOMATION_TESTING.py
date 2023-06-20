@@ -15,9 +15,21 @@ from vosk import Model, KaldiRecognizer
 from playsound import playsound
 r = sr.Recognizer()
 audio_file = 'C:\\Users\\20325730\\Desktop\\PROJECT\\PROJECT\\yes_no.mp3'
-model = Model('C:\\Users\\20325730\\Desktop\\PROJECT\\PROJECT\\vosk-model-en-in-0.5')
+model = Model('C:\\Users\\20325730\\Desktop\\PROJECT\\PROJECT\\vosk-model-en-in-0.5\\vosk-model-en-in-0.5')
 recognizer = KaldiRecognizer(model, 16000)
-word_replacements = {"zero": "0",}
+word_replacements = {
+    "zero": "0",
+    "one": "1",
+    "two": "2",
+    "three": "3",
+    "four": "4",
+    "five": "5",
+    "six": "6",
+    "seven": "7",
+    "eight": "8",
+    "nine": "9",
+    "eye" : " i"
+}
 # Returning the value of input
 def perform_speech_recognition():
  try:
@@ -105,7 +117,7 @@ def input_entry(driver, xpath):
             print("An error occurred:", str(e))
             print("Retrying...")
             continue
-url = "https://eip4dev.lntecc.com/EIPSCMUI/SOPUI/indent-request/indentReq"
+url = "https://eip4bfix.lntecc.com/EIPSCMUI/SOPUI/indent-request/indentReq"
 chrome_driver_path = "C:\\Users\\20325730\\Desktop\\PROJECT\\PROJECT\\chromedriver_win32\\chromedriver.exe"
 service = Service(chrome_driver_path)
 driver = webdriver.Chrome(service=service)
@@ -116,19 +128,19 @@ other_user = driver.find_element(By.XPATH,'/html/body/app-root/div/div[2]/app-lo
 other_user.click()
 username = driver.find_element(By.XPATH, '//*[@id="username"]')
 username.click()
-username.send_keys("mmurali")
+username.send_keys("nmanikandan")
 password = driver.find_element(By.XPATH, '//*[@id="password-field"]')
 password.click()
-password.send_keys("Phnx@2019")
+password.send_keys("E210a#04P1e&bfix")
 login = driver.find_element(By.XPATH, '//*[@id="login-submit"]')
 login.click()
-#time.sleep(3)
-#session = driver.find_element(By.XPATH, '//*[@id="mat-dialog-0"]/eipmessagebox/div/div[3]/button')
-#session.click()
-time.sleep(12)
-approver = driver.find_element(By.XPATH, '/html/body/app-root/div/div[2]/app-indent-container/div/dynamic-tabs/dynamic-tab/div/app-indent-landing/div/div/div[2]/kendo-grid/kendo-grid-toolbar/div/div[3]/mat-slide-toggle/label/span[1]/span/span[1]')
-approver.click()
 time.sleep(3)
+session = driver.find_element(By.XPATH, '//*[@id="mat-dialog-0"]/eipmessagebox/div/div[3]/button')
+session.click()
+time.sleep(12)
+#approver = driver.find_element(By.XPATH, '/html/body/app-root/div/div[2]/app-indent-container/div/dynamic-tabs/dynamic-tab/div/app-indent-landing/div/div/div[2]/kendo-grid/kendo-grid-toolbar/div/div[3]/mat-slide-toggle/label/span[1]/span/span[1]')
+#approver.click()
+#time.sleep(3)
 create_indent = driver.find_element(By.XPATH, '//*[@id="ibtINDADD"]')
 create_indent.click()
 time.sleep(2)
@@ -197,9 +209,12 @@ expand_list = driver.find_element(By.XPATH,'/html/body/div[2]/div[2]/div/mat-dia
 expand_list.click()
 cost_package = driver.find_element(By.XPATH,'/html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[2]/div/div/mat-horizontal-stepper/div[2]/div[2]/div/kendo-grid/div/kendo-grid-list/div/div[1]/table/tbody/tr[2]/td[2]/div/kendo-grid/div/kendo-grid-list/div/div[1]/table/tbody/tr/td[1]/kendo-combobox/span/kendo-searchbar/input')
 cost_package.click()
+time.sleep(3)
+cost_package.send_keys("acss")
 time.sleep(1)
-xpath9 =  '/html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[2]/div/div/mat-horizontal-stepper/div[2]/div[2]/div/kendo-grid/div/kendo-grid-list/div/div[1]/table/tbody/tr[2]/td[2]/div/kendo-grid/div/kendo-grid-list/div/div[1]/table/tbody/tr/td[1]/kendo-combobox/span/kendo-searchbar/input'
-input_entry(driver, xpath9)
+#xpath9 =  '/html/body/div[2]/div[2]/div/mat-dialog-container/app-indent-create/div[2]/div/div/mat-horizontal-stepper/div[2]/div[2]/div/kendo-grid/div/kendo-grid-list/div/div[1]/table/tbody/tr[2]/td[2]/div/kendo-grid/div/kendo-grid-list/div/div[1]/table/tbody/tr/td[1]/kendo-combobox/span/kendo-searchbar/input'
+#input_entry(driver, xpath9)
+
 time.sleep(2)
 press('enter')
 time.sleep(1)
